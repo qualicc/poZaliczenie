@@ -48,27 +48,33 @@ class Produkt
 class Katalog:public Produkt
 {
     protected:
-        int wielkosc,ID;
+        int wielkosc,ID, aktualny;
         string nazwa;
+        Produkt bufor;
 
     public:
         Katalog(int rozmiar);
         bool import();
         bool save();
-        float wartoscKatalogu(); //all                  warosc
-        float wartoscProduktu(int id); //jeden      
-        int iloscProduktow(); //all                     ilosc
-        int iloscProduktu(int id); //jeden
-        int iloscZarezerowanychProd(); //all            rezerwacja
-        int iloscZarezerowanegoProd(int id); //jeden
-        int iloscWyslanychProd(); //all                 wysylka
-        int iloscWyslanegoProd(int id); //jeden
-        int ktoDostarcza(int id); //                     dostawca
+        void kolejny(int x);
+        void poprzedni(int x);
+        void wyswietl(int x);
 
+        
 
 
         // generowanie wielkości katalogu w konstrukcie poprzez wartość przekazywaną do konstrukta
         //
+};
+
+class User
+{
+    protected:
+        string nazwa, haslo;
+
+    public:
+        bool zaloguj(string login, string haslo);
+        bool wyloguj();
 };
 #include "funkcje.cpp"
 #include "Produkt_metody.cpp"
@@ -76,5 +82,47 @@ class Katalog:public Produkt
 
 main()
 {
+    char input;
     srand(time(NULL));
+    do
+    {
+        fflush(stdin);
+        system("cls");
+        
+        //lista instrukcji
+        cout<<"Magazyn"<<endl<<endl;
+        cout<<"1. Lista magazynow"<<endl;
+        cout<<"2. Dodaj magazyn"<<endl;
+
+        cout<<"ESC. Wyjscie"<<endl;
+        input = getch();
+        switch (input)
+        {
+            case '1':
+
+
+            break;
+            case '2';
+            
+            break;
+            case 27:
+                char info;
+                cout<<"napewno wylogowac?"<<endl;
+                cout<<"T/N"<<endl;
+                info = getch();
+                if (info == 'T' || info == 't')
+                {
+                    input = '0';
+                }
+                
+                break;
+            
+            default:
+                cout<<"zla komenda";
+                break;
+        }
+        
+        
+    } while (input != '0');
+    
 }

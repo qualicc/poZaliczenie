@@ -10,3 +10,43 @@
 #include <fstream>
 #include <algorithm>
 using namespace std;
+
+    Katalog::katalog(int rozmiar)
+{
+    
+}
+void Katalog::kolejny(int x)
+{
+    if(minMaxI(0,this -> wielkosc, x))
+    {
+        aktualny++;
+    }
+}
+void Katalog::kolejny(int x)
+{
+    if(minMaxI(0,this -> wielkosc, x))
+    {
+        aktualny--;
+    }
+}
+void Katalog::wyswietl(int x)
+{
+    if(minMaxI(0,this -> wielkosc, x))
+    {
+        //if nie ukryte
+        cout<<"ID: ";
+        //wyswielt id
+        cout<<"Nazwa: ";
+        //wyswielt nazwe
+        cout<<"Cena: ";
+        //wyswielt nazwe
+        cout<<"Ilosc: ";
+        //wyswielt Ilosc
+        cout<<"Dostawca: ";
+        //wyswielt Dostawca
+        cout<<"Zarezerowane: ";
+        //wyswielt Zarezerowane
+        cout<<"Wyslane: ";
+        //wyswielt Wyslane
+    }
+}
