@@ -29,7 +29,7 @@ class Produkt
         bool zwroc(int ile);
         //set i get
         bool setCena(int cena);
-        bool setNazwa(string naz);
+        bool setNazwaProd(string naz);
         bool setDostawca(int dost);
         bool setID(int id);
         bool setIlosc(int ilosc);
@@ -37,7 +37,7 @@ class Produkt
         bool setWyslane(int wys);
         int  getCena();
         int  getDostawca();
-        string getNazwa();
+        string getNazwaProd();
         int  getID();
         int  getIlosc();
         int  getRezerwacja();
@@ -49,16 +49,19 @@ class Katalog:public Produkt
 {
     protected:
         int wielkosc,ID, aktualny;
-        string nazwa;
-        Produkt bufor;
+        string nazwa = "";
+        Produkt bufor, *produkty;
 
     public:
-        Katalog(int rozmiar);
+        //Katalog(int rozmiar);
         bool import();
         bool save();
+        void buduj(int x);
         void kolejny(int x);
         void poprzedni(int x);
         void wyswietl(int x);
+        void setNazwa(string naz);
+        string getNazwa();
 
         
 
@@ -82,6 +85,10 @@ class User
 
 main()
 {
+    int wielkosc= 0,utworzone = 0;
+    string nazw;
+    Katalog *kat;
+    kat = new Katalog[10];
     char input;
     srand(time(NULL));
     do
@@ -99,11 +106,50 @@ main()
         switch (input)
         {
             case '1':
+                for (int i = 0; i < 9; i++)
+                {
+                    cout<<i<<". "<<kat[i].getNazwa()<<endl;
+                }
+                do
+                {
+                    cout<<"wybierz magazyn(1-10) lub ESC aby wyjsc";
+                    input = getch();
+                    switch (input)
+                    {
+                    case 48 ... 57:
+                        //wyberanie magazynu
+                        break;
+                    case 27:
+                        break;
+                    default:
+                        cout<<"zla komenda";
+                        break;
+                    }                    
+                } while (input != 27);
+                
 
 
             break;
-            case '2';
-            
+            case '2':
+                do
+                {
+                    cout<<"Podaj wielkosc katalogu:"<<endl<<"  ";
+                    cin>>wielkosc;
+                    if (wielkosc > 0)
+                    {
+                        cout<<"podaj nazwe katalogu:"<<endl<<"  ";
+                        cin>>nazw;
+                        kat[utworzone].buduj(wielkosc);
+                        kat[utworzone].setNazwa(nazw);
+                        utworzone++;
+                    }
+                    else
+                    {
+                        cout<<"Zła wartość"<<endl;
+                    }
+                    
+                } while (wielkosc < 0);
+                
             break;
             case 27:
                 char info;

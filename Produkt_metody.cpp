@@ -71,7 +71,7 @@ bool Produkt::setCena(int cena)
     }
     return false;
 }
-bool Produkt::setNazwa(string naz)
+bool Produkt::setNazwaProd(string naz)
 {
     this -> nazwa = naz;
     //strcpy(this -> nazwa,naz);
@@ -122,7 +122,7 @@ int  Produkt::getDostawca()
 {
     return this -> dostawca;
 }
-string Produkt::getNazwa()
+string Produkt::getNazwaProd()
 {
     return this ->nazwa;
 }

@@ -11,10 +11,10 @@
 #include <algorithm>
 using namespace std;
 
-    Katalog::katalog(int rozmiar)
-{
+//     Katalog::Katalog(int rozmiar)
+// {
     
-}
+// }
 void Katalog::kolejny(int x)
 {
     if(minMaxI(0,this -> wielkosc, x))
@@ -22,7 +22,7 @@ void Katalog::kolejny(int x)
         aktualny++;
     }
 }
-void Katalog::kolejny(int x)
+void Katalog::poprzedni(int x)
 {
     if(minMaxI(0,this -> wielkosc, x))
     {
@@ -49,4 +49,16 @@ void Katalog::wyswietl(int x)
         cout<<"Wyslane: ";
         //wyswielt Wyslane
     }
+}
+void Katalog::buduj(int x)
+{
+    produkty = new Produkt[x];
+}
+void Katalog::setNazwa(string naz)
+{
+    this -> nazwa = naz;
+}
+string Katalog::getNazwa()
+{
+    return this -> nazwa;
 }
