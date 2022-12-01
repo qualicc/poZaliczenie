@@ -85,7 +85,7 @@ class User
 
 main()
 {
-    int wielkosc= 0,utworzone = 0;
+    int wielkosc= 0,utworzone = 0,wybrany;
     string nazw;
     Katalog *kat;
     kat = new Katalog[10];
@@ -108,7 +108,7 @@ main()
             case '1':
                 for (int i = 0; i < 9; i++)
                 {
-                    cout<<i<<". "<<kat[i].getNazwa()<<endl;
+                    cout<<(i+1)<<". "<<kat[i].getNazwa()<<endl;
                 }
                 do
                 {
@@ -118,6 +118,7 @@ main()
                     {
                     case 48 ... 57:
                         //wyberanie magazynu
+                        wybrany = input-49;
                         break;
                     case 27:
                         break;
