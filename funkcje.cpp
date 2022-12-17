@@ -44,3 +44,10 @@ bool minMaxF(float min, float max, float z)
     }
     return false;
 }
+void tp(int x, int y)
+{
+     COORD c;
+     c.Y = x-1;
+     c.X = y-1;
+     SetConsoleCursorPosition (GetStdHandle (STD_OUTPUT_HANDLE), c);
+}

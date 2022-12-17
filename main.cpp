@@ -61,6 +61,7 @@ class Katalog:public Produkt
         void poprzedni(int x);
         void wyswietl(int x);
         void setNazwa(string naz);
+        void menu();
         string getNazwa();
 
         
@@ -119,6 +120,7 @@ main()
                     case 48 ... 57:
                         //wyberanie magazynu
                         wybrany = input-49;
+                        kat[wybrany].menu();
                         break;
                     case 27:
                         break;
@@ -173,3 +175,5 @@ main()
     } while (input != '0');
     
 }
+
+
