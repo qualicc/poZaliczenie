@@ -27,7 +27,6 @@ void Produkt::losuj()
     //strcpy(this ->     nazwa,"Towar");
     this ->     nazwa = "Towar";
     this ->     ilosc = rand()%100+1;
-    this ->     dostawca = rand()%10+1;
     this ->     rezerwacja = rand()%1000+1;
     this ->     wyslane = rand()%10000+1;
     this ->     cena = (rand()%10000+1)/100;
@@ -77,11 +76,6 @@ bool Produkt::setNazwaProd(string naz)
     //strcpy(this -> nazwa,naz);
     return true;
 }
-bool Produkt::setDostawca(int dost)
-{
-    this -> dostawca = dost;
-    return true;
-}
 bool Produkt::setID(int id)
 {
     this -> ID = id;
@@ -117,10 +111,6 @@ bool Produkt::setWyslane(int wys)
 int  Produkt::getCena()
 {
     return this -> ilosc;
-}
-int  Produkt::getDostawca()
-{
-    return this -> dostawca;
 }
 string Produkt::getNazwaProd()
 {
