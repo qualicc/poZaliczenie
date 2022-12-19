@@ -24,12 +24,13 @@ void Produkt::odzyskaj()
 void Produkt::losuj()
 {
     srand(time(NULL));
+    int random = rand();
     //strcpy(this ->     nazwa,"Towar");
     this ->     nazwa = "Towar";
-    this ->     ilosc = rand()%100+1;
-    this ->     rezerwacja = rand()%1000+1;
-    this ->     wyslane = rand()%10000+1;
-    this ->     cena = (rand()%10000+1)/100;
+    this ->     ilosc = random%100+1;
+    this ->     rezerwacja = random%1000+1;
+    this ->     wyslane = random%10000+1;
+    this ->     cena = (random%10000+1)/100;
 }
 bool Produkt::zarezeruj(int ile)
 {
