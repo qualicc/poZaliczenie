@@ -48,7 +48,7 @@ class Produkt
 class Katalog:public Produkt
 {
     protected:
-        int wielkosc,ID, aktualny;
+        int wielkosc,ID, aktualny = 0, dane = 0;
         string nazwa = "";
         Produkt bufor, *produkty;
 
@@ -57,12 +57,13 @@ class Katalog:public Produkt
         bool import();
         bool save();
         void buduj(int x);
-        void kolejny(int x);
-        void poprzedni(int x);
-        void wyswietl(int x);
+        void kolejny();
+        void poprzedni();
+        void wyswietl();
         void setNazwa(string naz);
         void menu();
         string getNazwa();
+        void generuj(int x);
 
         
 
