@@ -1,0 +1,37 @@
+zapisz
+wczytaj
+zapisz pod nazwą
+sortuj po id/cena/sprzedane
+kosz
+filtr nazwa/cena/sprzedane
+dodaj jeden
+przegląd wszystkich
+export xml
+usuwanie wyfiltrowanych
+zapis wyszukiwania do pliku
+wydruk do pliku txt
+wyszukiwanie podwójne
+
+
+
+
+
+
+
+
+com 
+jeśli chcesz zrobić przeglądanie po wyszukiwani to musisz przekazać tablice z produktami jako parametr do metody przeglądania
+edycje natomiast robisz na podstawie zamiany danych gdzie jest określona wartość 
+przykład w sql UPADATE sth FROM produkty WHERE ID = x;
+co zmienia koncept instrukcji zamieniającej
+
+
+jak kurwa zrobić wczytanie po danej nazwie???
+
+
+przerobić funkcje wyświatlania pod t and f dla maina i archa(parametr wyszukiwania)
+
+
+testować porównywanie znaków w string
+
+

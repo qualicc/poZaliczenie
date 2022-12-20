@@ -313,3 +313,5 @@ void Katalog::generuj(int x)
 //    --------------------------
 
 
+//  ID      Nazwa               Cena        Ilosc       Sprzedano      Rezerwacja       Wyslano
+//  1       Towar               123         124         543            125              5324
