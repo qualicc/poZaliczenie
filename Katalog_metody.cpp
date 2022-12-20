@@ -178,7 +178,7 @@ void Katalog::menu()
         cout<<"|Wielkosc: "<< this -> wielkosc;
         tp(4,koniecLini);cout<<"|"<<endl;
         cout<<"|Ilosc danych: "<< this -> dane;
-        tp(4,koniecLini);cout<<"|"<<endl;
+        tp(5,koniecLini);cout<<"|"<<endl;
         cout<<"|                        |"<<endl;
         cout<<"|########################|"<<endl;
         cout<<"|1. Przegladaj jeden     |"<<endl;
