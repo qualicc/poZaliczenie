@@ -21,16 +21,17 @@ void Produkt::odzyskaj()
 {
     this -> ukrycie = false;
 }
-void Produkt::losuj()
+void Produkt::losuj(int id)
 {
     srand(time(NULL));
-    //strcpy(this ->     nazwa,"Towar");
-    this ->     nazwa = "Towar";
-    this ->     ilosc = rand()%100+1;
-    this ->     dostawca = rand()%10+1;
-    this ->     rezerwacja = rand()%1000+1;
-    this ->     wyslane = rand()%10000+1;
-    this ->     cena = (rand()%10000+1)/100;
+    int liczba = rand();
+    this -> setID(id);
+    this -> setNazwaProd("Towar");
+    this -> setIlosc(liczba%800+1);
+    this -> setRezerwacja(liczba%400+1);
+    this -> setWyslane(liczba%200+1);
+    this -> setWyslane(liczba%2000+1);
+    this -> setCena(liczba%500+1);
 }
 bool Produkt::zarezeruj(int ile)
 {
@@ -77,11 +78,6 @@ bool Produkt::setNazwaProd(string naz)
     //strcpy(this -> nazwa,naz);
     return true;
 }
-bool Produkt::setDostawca(int dost)
-{
-    this -> dostawca = dost;
-    return true;
-}
 bool Produkt::setID(int id)
 {
     this -> ID = id;
@@ -118,10 +114,6 @@ int  Produkt::getCena()
 {
     return this -> ilosc;
 }
-int  Produkt::getDostawca()
-{
-    return this -> dostawca;
-}
 string Produkt::getNazwaProd()
 {
     return this ->nazwa;
@@ -141,4 +133,8 @@ int  Produkt::getRezerwacja()
 int  Produkt::getWyslane()
 {
     return this -> wyslane;
+}
+bool  Produkt::getStatus()
+{
+    return this -> ukrycie;
 }

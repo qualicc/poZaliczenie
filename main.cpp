@@ -15,7 +15,7 @@ class Produkt
 {
     protected:
         string nazwa;//1
-        int ilosc, dostawca, rezerwacja, wyslane, ID;
+        int ilosc, rezerwacja, wyslane, ID;
         float cena;
         bool ukrycie = false;//1
 
@@ -23,20 +23,19 @@ class Produkt
         //metody
         void ukryj();
         void odzyskaj();
-        void losuj();
+        void losuj(int id);
         bool zarezeruj(int ile);
         bool wyslij(int ile);
         bool zwroc(int ile);
         //set i get
         bool setCena(int cena);
         bool setNazwaProd(string naz);
-        bool setDostawca(int dost);
         bool setID(int id);
         bool setIlosc(int ilosc);
         bool setRezerwacja(int rez);
         bool setWyslane(int wys);
+        bool getStatus();
         int  getCena();
-        int  getDostawca();
         string getNazwaProd();
         int  getID();
         int  getIlosc();

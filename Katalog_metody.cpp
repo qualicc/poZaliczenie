@@ -17,16 +17,38 @@ using namespace std;
 // }
 void Katalog::kolejny()
 {
-    if(0 <= (this -> aktualny+1) || (this -> aktualny+1) <= this -> dane)
+    int x = 1;
+
+    if(0 <= (this -> aktualny+1) && (this -> aktualny+1) <= this -> dane)
     {
-        aktualny++;
+        do
+        {
+            if (this -> produkty[aktualny+x].getStatus() == true)
+            {
+                x++;
+            }
+
+        } while (this -> produkty[aktualny+x].getStatus() == true);
+        
+        this -> aktualny = aktualny + x;
     }
 }
 void Katalog::poprzedni()
 {
-    if(0 <= (this -> aktualny+1) || (this -> aktualny+1) <= this -> dane)
+    int x = 1;
+
+    if(0 <= (this -> aktualny-1) && (this -> aktualny-1) <= this -> dane)
     {
-        this ->aktualny--;
+        do
+        {
+            if (this -> produkty[aktualny-x].getStatus() == true)
+            {
+                x++;
+            }
+
+        } while (this -> produkty[aktualny-x].getStatus() == true);
+        
+        this -> aktualny = aktualny - x;
     }
 }
 void Katalog::wyswietl()
@@ -54,6 +76,8 @@ void Katalog::wyswietl()
         tp(7,koniecLini);cout<<"|"<<endl;
         cout<<"|wyslano: "<< this -> produkty[this ->aktualny].getWyslane();
         tp(8,koniecLini);cout<<"|"<<endl;
+        cout<<"|akutalny: "<< this -> aktualny;
+        tp(9,koniecLini);cout<<"|"<<endl;
         cout<<"|                          |"<<endl;
         cout<<"|##########################|"<<endl;
         cout<<"|1. Zmien dane             |"<<endl;
@@ -68,7 +92,7 @@ void Katalog::wyswietl()
         switch (input)
         {
             case '1':
-                bufor.setID(produkty[this -> aktualny].getID());
+                bufor.setID(this ->produkty[this -> aktualny].getID());
                 cout<<"Podaj nazwe: ";
                 getline( cin, nazw );
                 bufor.setNazwaProd(nazw);
@@ -82,7 +106,7 @@ void Katalog::wyswietl()
                     }
                     else
                     {
-                        bufor.setCena(cyfra);
+                        this -> bufor.setCena(cyfra);
                     }
                     
                 } while (cyfra <= 0);
@@ -97,7 +121,7 @@ void Katalog::wyswietl()
                     }
                     else
                     {
-                        bufor.setIlosc(cyfra);
+                        this -> bufor.setIlosc(cyfra);
                     }
                     
                 } while (cyfra <= 0);
@@ -112,7 +136,7 @@ void Katalog::wyswietl()
                     }
                     else
                     {
-                        bufor.setRezerwacja(cyfra);
+                        this -> bufor.setRezerwacja(cyfra);
                     }
                     
                 } while (cyfra <= 0);
@@ -127,19 +151,25 @@ void Katalog::wyswietl()
                     }
                     else
                     {
-                        bufor.setWyslane(cyfra);
+                        this -> bufor.setWyslane(cyfra);
                     }
                     
                 } while (cyfra <= 0);
+                cout<<endl<<"Napewno chcesz zamienić? T/N"<<endl;
+                input = getch();
+                if(input == 'T' || input == 't')
+                {
+                    this -> produkty[this -> aktualny] = bufor; 
+                }
             break;
             case '2':
-                produkty[this -> aktualny].ukryj();
+                 this -> produkty[this -> aktualny].ukryj();
             break;
             case 68: case 100:
-                poprzedni();
+                this -> kolejny();
             break;
             case 65: case 97:
-                kolejny();
+                this ->  poprzedni();
             break;            
             default:
             cout<<"zla komenda";
@@ -240,7 +270,7 @@ void Katalog::generuj(int x)
 {
     for (int i = 0; i <= x; i++)
     {
-        this -> produkty[(this -> dane + i)].losuj();
+        this -> produkty[(this -> dane + i)].losuj(this -> dane + i);
     }
     this -> dane = this -> dane + x;    
 }
