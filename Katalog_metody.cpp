@@ -15,45 +15,43 @@ using namespace std;
 // {
     
 // }
-void Katalog::kolejny()
+void Katalog::kolejny(int x)
 {
-    if(0 <= (this -> aktualny+1) || (this -> aktualny+1) <= this -> dane)
+    if(minMaxI(0,this -> wielkosc, x))
     {
         aktualny++;
     }
 }
-void Katalog::poprzedni()
+void Katalog::poprzedni(int x)
 {
-    if(0 <= (this -> aktualny-1) || (this -> aktualny-1) <= this -> dane)
+    if(minMaxI(0,this -> wielkosc, x))
     {
         aktualny--;
     }
 }
 void Katalog::wyswietl(int x)
 {
-    this -> aktualny = x;
-    int koniecLini = 28,cyfra;
+    int koniecLini = 28;
     char input = 0;
-    string nazw;
     do
     {
         fflush(stdin);
         system("cls");
 
         cout<<"----------------------------"<<endl;
-        cout<<"|ID: "<<this -> produkty[this -> aktualny].getID();
+        cout<<"|ID: "<<this -> produkty[x].getID();
         tp(2,koniecLini);cout<<"|"<<endl;
-        cout<<"|nazwa: "<< this -> produkty[this -> aktualny].getNazwaProd();
+        cout<<"|nazwa: "<< this -> produkty[x].getNazwaProd();
         tp(3,koniecLini);cout<<"|"<<endl;
-        cout<<"|cena: "<< this -> produkty[this -> aktualny].getCena();
+        cout<<"|cena: "<< this -> produkty[x].getCena();
         tp(4,koniecLini);cout<<"|"<<endl;
-        cout<<"|ilosc: "<< this -> produkty[this -> aktualny].getIlosc();
+        cout<<"|ilosc: "<< this -> produkty[x].getIlosc();
         tp(5,koniecLini);cout<<"|"<<endl;
-        cout<<"|sprzedano: "<< (this -> produkty[this -> aktualny].getRezerwacja())+(this -> produkty[x].getWyslane());
+        cout<<"|sprzedano: "<< (this -> produkty[x].getRezerwacja())+(this -> produkty[x].getWyslane());
         tp(6,koniecLini);cout<<"|"<<endl;
-        cout<<"|rezerwacja: "<< this -> produkty[this -> aktualny].getRezerwacja();
+        cout<<"|rezerwacja: "<< this -> produkty[x].getRezerwacja();
         tp(7,koniecLini);cout<<"|"<<endl;
-        cout<<"|wyslano: "<< this -> produkty[this -> aktualny].getWyslane();
+        cout<<"|wyslano: "<< this -> produkty[x].getWyslane();
         tp(8,koniecLini);cout<<"|"<<endl;
         cout<<"|                          |"<<endl;
         cout<<"|##########################|"<<endl;
@@ -69,79 +67,22 @@ void Katalog::wyswietl(int x)
         switch (input)
         {
             case '1':
-                bufor.setID(produkty[this -> aktualny].getID());
-                cout<<"Podaj nazwe: ";
-                getline( cin, nazw );
-                bufor.setNazwaProd(nazw);
-                do
-                {
-                    cout<<endl<<"Podaj cene: ";
-                    cin>>cyfra;
-                    if (cyfra <= 0)
-                    {
-                        cout<<"zla wartosc";
-                    }
-                    else
-                    {
-                        bufor.setCena(cyfra);
-                    }
-                    
-                } while (cyfra <= 0);
-                cyfra = 0;
-                do
-                {
-                    cout<<endl<<"Podaj ilosc: ";
-                    cin>>cyfra;
-                    if (cyfra <= 0)
-                    {
-                        cout<<"zla wartosc";
-                    }
-                    else
-                    {
-                        bufor.setIlosc(cyfra);
-                    }
-                    
-                } while (cyfra <= 0);
-                cyfra = 0;
-                do
-                {
-                    cout<<endl<<"Podaj ilosc zarezerwowanych: ";
-                    cin>>cyfra;
-                    if (cyfra <= 0)
-                    {
-                        cout<<"zla wartosc";
-                    }
-                    else
-                    {
-                        bufor.setRezerwacja(cyfra);
-                    }
-                    
-                } while (cyfra <= 0);
-                cyfra = 0;
-                do
-                {
-                    cout<<endl<<"Podaj ilosc wyslanych: ";
-                    cin>>cyfra;
-                    if (cyfra <= 0)
-                    {
-                        cout<<"zla wartosc";
-                    }
-                    else
-                    {
-                        bufor.setWyslane(cyfra);
-                    }
-                    
-                } while (cyfra <= 0);
-
+                
             break;
             case '2':
-                produkty[this -> aktualny].ukryj();
+                //kiedys
             break;
-            case 65: case 97:
-                kolejny();
+            case '3':
+                //kiedys
             break;
-            case 68: case 100:
-                poprzedni();
+            case '4':
+                //kiedys
+            break;
+            case '5':
+                //kiedys
+            break;
+            case '6':
+                //kiedys
             break;
 
             default:
@@ -150,14 +91,6 @@ void Katalog::wyswietl(int x)
         }
         
     } while (input != 27);
-}
-void Katalog::generuj(int x)
-{
-    for (int i = 0; i <= x; i++)
-    {
-        this -> produkty[(this -> dane + i)].losuj();
-    }
-    this -> dane = this -> dane + x;    
 }
 void Katalog::buduj(int x)
 {
@@ -188,8 +121,6 @@ void Katalog::menu()
         tp(3,koniecLini);cout<<"|"<<endl;
         cout<<"|Wielkosc: "<< this -> wielkosc;
         tp(4,koniecLini);cout<<"|"<<endl;
-        cout<<"|Ilosc danych: "<< this -> dane;
-        tp(5,koniecLini);cout<<"|"<<endl;
         cout<<"|                        |"<<endl;
         cout<<"|########################|"<<endl;
         cout<<"|1. Przegladaj jeden     |"<<endl;
@@ -197,8 +128,7 @@ void Katalog::menu()
         cout<<"|3. Kosz                 |"<<endl;
         cout<<"|4. Sortuj               |"<<endl;
         cout<<"|5. Filtruj              |"<<endl;
-        cout<<"|6. Dodaj jeden          |"<<endl;
-        cout<<"|7. Generuj              |"<<endl;   
+        cout<<"|6. Dodaj jeden          |"<<endl;   
         cout<<"|                        |"<<endl;
         cout<<"|                        |"<<endl;
         cout<<"|ESC. Wyjdz              |"<<endl;
@@ -224,20 +154,6 @@ void Katalog::menu()
             break;
             case '6':
                 //kiedys
-            break;
-            case '7':
-                int ile;
-                do
-                {
-                    cout<<endl<<"Ile generowac?";
-                    cin>>ile;
-                    if(ile <= 0 || ile > this -> wielkosc)
-                    {
-                        cout<<"Zla wartosc"<<endl;
-                    }
-                } while (ile <= 0 || ile > this -> wielkosc);
-                generuj(ile);
-                
             break;
 
             default:
@@ -270,7 +186,6 @@ void Katalog::menu()
 //    |twoja nazwa:            |
 //    |obecny magazyn:         |
 //    |wielkosc:               |
-//    |ilosc danych:           |
 //    |                        |
 //    |                        |
 //    |########################|

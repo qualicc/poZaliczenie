@@ -15,7 +15,7 @@ class Produkt
 {
     protected:
         string nazwa;//1
-        int ilosc, rezerwacja, wyslane, ID;
+        int ilosc, dostawca, rezerwacja, wyslane, ID;
         float cena;
         bool ukrycie = false;//1
 
@@ -30,11 +30,13 @@ class Produkt
         //set i get
         bool setCena(int cena);
         bool setNazwaProd(string naz);
+        bool setDostawca(int dost);
         bool setID(int id);
         bool setIlosc(int ilosc);
         bool setRezerwacja(int rez);
         bool setWyslane(int wys);
         int  getCena();
+        int  getDostawca();
         string getNazwaProd();
         int  getID();
         int  getIlosc();
@@ -46,7 +48,7 @@ class Produkt
 class Katalog:public Produkt
 {
     protected:
-        int wielkosc, ID, aktualny = 0, dane = 0;
+        int wielkosc,ID, aktualny;
         string nazwa = "";
         Produkt bufor, *produkty;
 
@@ -55,11 +57,10 @@ class Katalog:public Produkt
         bool import();
         bool save();
         void buduj(int x);
-        void kolejny();
-        void poprzedni();
+        void kolejny(int x);
+        void poprzedni(int x);
         void wyswietl(int x);
         void setNazwa(string naz);
-        void generuj(int x);
         void menu();
         string getNazwa();
 
@@ -140,7 +141,7 @@ main()
                     if (wielkosc > 0)
                     {
                         cout<<"podaj nazwe katalogu:"<<endl<<"  ";
-                        getline( cin, nazw );
+                        cin>>nazw;
                         kat[utworzone].buduj(wielkosc);
                         kat[utworzone].setNazwa(nazw);
                         utworzone++;
