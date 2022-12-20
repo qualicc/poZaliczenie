@@ -55,8 +55,6 @@ void Katalog::wyswietl(int x)
         tp(7,koniecLini);cout<<"|"<<endl;
         cout<<"|wyslano: "<< this -> produkty[this -> aktualny].getWyslane();
         tp(8,koniecLini);cout<<"|"<<endl;
-        cout<<"|aktualny: "<< this -> aktualny;
-        tp(9,koniecLini);cout<<"|"<<endl;
         cout<<"|                          |"<<endl;
         cout<<"|##########################|"<<endl;
         cout<<"|1. Zmien dane             |"<<endl;
