@@ -29,7 +29,6 @@ void Produkt::losuj(int id)
     this -> setNazwaProd("Towar");
     this -> setIlosc(liczba%800+1);
     this -> setRezerwacja(liczba%400+1);
-    this -> setWyslane(liczba%200+1);
     this -> setWyslane(liczba%2000+1);
     this -> setCena(liczba%500+1);
     this -> odzyskaj();
@@ -138,4 +137,18 @@ int  Produkt::getWyslane()
 bool  Produkt::getStatus()
 {
     return this -> ukrycie;
+}
+void Produkt::setStatus(bool status)
+{
+    this -> ukrycie = status;
+}
+void Produkt::setAll(int id, string name, int cena, int ilosc, int rezerwacje, int wyslane , bool status)
+{
+    this -> setID(id);
+    this -> setNazwaProd(name);
+    this -> setIlosc(ilosc);
+    this -> setRezerwacja(rezerwacje);
+    this -> setWyslane(wyslane);
+    this -> setCena(cena);
+    this -> setStatus(status);
 }

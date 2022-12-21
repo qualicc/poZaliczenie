@@ -19,7 +19,7 @@ void Katalog::kolejny()
 {
     int x = 1;
 
-    if(0 <= (this -> aktualny+1) && (this -> aktualny+1) <= this -> dane)
+    if((this -> aktualny+1) <= this -> dane)
     {
         do
         {
@@ -43,7 +43,7 @@ void Katalog::poprzedni()
 {
     int x = 1;
 
-    if(0 <= (this -> aktualny-1) && (this -> aktualny-1) <= this -> dane)
+    if(0 <= (this -> aktualny-1))
     {
         do
         {
@@ -173,11 +173,15 @@ void Katalog::wyswietl()
                     }
                     
                 } while (cyfra <= 0);
-                cout<<endl<<"Napewno chcesz zamienić? T/N"<<endl;
+                cout<<endl<<"Napewno chcesz zamienic? T/N"<<endl;
                 input = getch();
                 if(input == 'T' || input == 't')
                 {
-                    this -> produkty[this -> aktualny] = bufor; 
+                    if(this -> zamienJeden(this ->produkty[this -> aktualny].getID()))
+                    {
+                        cout<<endl<<"Zamieniono pomyslnie"<<endl;
+                        system("pause");
+                    }
                 }
             break;
             case '2':
@@ -215,8 +219,9 @@ string Katalog::getNazwa()
 }
 void Katalog::menu()
 {
-    int koniecLini = 26, pion = 20;
+    int koniecLini = 26, pion = 20, cyfra;
     char input = 0;
+    string nazw;
     do
     {
         fflush(stdin);
@@ -254,7 +259,7 @@ void Katalog::menu()
             break;
             case '2':
                 cout<<"  ID      Nazwa               Cena        Ilosc       Sprzedano      Rezerwacja       Wyslano"<<endl;
-                for (int i = 0; i <= this -> dane; i++)
+                for (int i = 0; i <= this -> dane+4; i++)
                 {
                     tp(pion + i,2);
                     cout<<this -> produkty[i].getID();
@@ -294,7 +299,85 @@ void Katalog::menu()
                 //kiedys
             break;
             case '6':
-                //kiedys
+                if((this -> dane + 1) <= this -> wielkosc)
+                {
+                    this -> bufor.setID((this -> dane + 1));
+                    this -> bufor.odzyskaj();
+                    cout<<"Podaj nazwe: ";
+                    getline( cin, nazw );
+                    bufor.setNazwaProd(nazw);
+                    do
+                    {
+                        cout<<endl<<"Podaj cene: ";
+                        cin>>cyfra;
+                        if (cyfra <= 0)
+                        {
+                            cout<<"zla wartosc";
+                        }
+                        else
+                        {
+                            this -> bufor.setCena(cyfra);
+                        }
+                        
+                    } while (cyfra <= 0);
+                    cyfra = 0;
+                    do
+                    {
+                        cout<<endl<<"Podaj ilosc: ";
+                        cin>>cyfra;
+                        if (cyfra <= 0)
+                        {
+                            cout<<"zla wartosc";
+                        }
+                        else
+                        {
+                            this -> bufor.setIlosc(cyfra);
+                        }
+                        
+                    } while (cyfra <= 0);
+                    cyfra = 0;
+                    do
+                    {
+                        cout<<endl<<"Podaj ilosc zarezerwowanych: ";
+                        cin>>cyfra;
+                        if (cyfra <= 0)
+                        {
+                            cout<<"zla wartosc";
+                        }
+                        else
+                        {
+                            this -> bufor.setRezerwacja(cyfra);
+                        }
+                        
+                    } while (cyfra <= 0);
+                    cyfra = 0;
+                    do
+                    {
+                        cout<<endl<<"Podaj ilosc wyslanych: ";
+                        cin>>cyfra;
+                        if (cyfra <= 0)
+                        {
+                            cout<<"zla wartosc";
+                        }
+                        else
+                        {
+                            this -> bufor.setWyslane(cyfra);
+                        }
+                        
+                    } while (cyfra <= 0);
+                    cout<<endl<<"Napewno chcesz dodac? T/N"<<endl;
+                    input = getch();
+                    if(input == 'T' || input == 't')
+                    {
+                        if(this -> zamienJeden((this -> dane + 1)))
+                        {
+                            this -> dane = this -> dane + 1;
+                            cout<<endl<<"Dodano pomyslnie"<<endl;
+                            system("pause");
+                        }
+                    } 
+                }
+
             break;
             case '7':
                 int ile;
@@ -320,7 +403,7 @@ void Katalog::menu()
 }
 void Katalog::generuj(int x)
 {
-    for (int i = 0; i <= x; i++)
+    for (int i = 0; i <= (x - 1); i++)
     {
         this -> produkty[(this -> dane + i)].losuj(this -> dane + i);
     }
@@ -333,6 +416,18 @@ void Katalog::setArch(bool x)
 bool Katalog::getArch()
 {
     return this -> arch;
+}
+bool Katalog::zamienJeden(int id)
+{
+    for (int i = 0; i < this ->dane; i++)
+    {
+        if(id == this -> produkty[i].getID())
+        {
+            this -> produkty[i] = this -> bufor;
+            return true;
+        }
+    }   
+    return false;
 }
 //
 //    ----------------------------
