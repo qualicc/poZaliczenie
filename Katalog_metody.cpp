@@ -23,15 +23,21 @@ void Katalog::kolejny()
     {
         do
         {
-            if (this -> produkty[aktualny+x].getStatus() == true)
+            if (this -> produkty[aktualny+x].getStatus() != getArch())
             {
                 x++;
             }
 
-        } while (this -> produkty[aktualny+x].getStatus() == true);
-        
+        } while (this -> produkty[aktualny+x].getStatus() != getArch());
+
+        if ((x + this -> aktualny) >= this -> dane)
+        {
+            x = 0;
+        }
+
         this -> aktualny = aktualny + x;
     }
+
 }
 void Katalog::poprzedni()
 {
@@ -41,12 +47,17 @@ void Katalog::poprzedni()
     {
         do
         {
-            if (this -> produkty[aktualny-x].getStatus() == true)
+            if (this -> produkty[aktualny-x].getStatus() != getArch())
             {
                 x++;
             }
 
-        } while (this -> produkty[aktualny-x].getStatus() == true);
+        } while (this -> produkty[aktualny-x].getStatus() != getArch());
+
+        if (this -> aktualny - x < 0)
+        {
+            x = 0;
+        }
         
         this -> aktualny = aktualny - x;
     }
@@ -60,8 +71,11 @@ void Katalog::wyswietl()
     {
         fflush(stdin);
         system("cls");
-
-        cout<<"----------------------------"<<endl;
+        if(getArch() == true){
+            cout<<"----------Archiwum----------"<<endl;
+        }else{
+            cout<<"----------------------------"<<endl;
+        }
         cout<<"|ID: "<<this -> produkty[this ->aktualny].getID();
         tp(2,koniecLini);cout<<"|"<<endl;
         cout<<"|nazwa: "<< this -> produkty[this ->aktualny].getNazwaProd();
@@ -81,7 +95,11 @@ void Katalog::wyswietl()
         cout<<"|                          |"<<endl;
         cout<<"|##########################|"<<endl;
         cout<<"|1. Zmien dane             |"<<endl;
-        cout<<"|2. Archiwizuj             |"<<endl;
+        if(getArch() == true){
+            cout<<"|2. Odzyskaj               |"<<endl;
+        }else{
+            cout<<"|2. Archiwizuj             |"<<endl;
+        }
         cout<<"|                          |"<<endl;
         cout<<"|                          |"<<endl;
         cout<<"|ESC. Wyjdz                |"<<endl;
@@ -163,7 +181,11 @@ void Katalog::wyswietl()
                 }
             break;
             case '2':
-                 this -> produkty[this -> aktualny].ukryj();
+                if(getArch() == true){
+                    this -> produkty[this -> aktualny].odzyskaj();
+                }else{
+                    this -> produkty[this -> aktualny].ukryj();
+                }
             break;
             case 68: case 100:
                 this -> kolejny();
@@ -193,7 +215,7 @@ string Katalog::getNazwa()
 }
 void Katalog::menu()
 {
-    int koniecLini = 26;
+    int koniecLini = 26, pion = 20;
     char input = 0;
     do
     {
@@ -227,13 +249,43 @@ void Katalog::menu()
         switch (input)
         {
             case '1':
+                this -> setArch(false);
                 this -> wyswietl();
             break;
             case '2':
-                //kiedys
+                cout<<"  ID      Nazwa               Cena        Ilosc       Sprzedano      Rezerwacja       Wyslano"<<endl;
+                for (int i = 0; i <= this -> dane; i++)
+                {
+                    tp(pion + i,2);
+                    cout<<this -> produkty[i].getID();
+                    tp(pion + i,10);
+                    cout<<this -> produkty[i].getNazwaProd();
+                    tp(pion + i,30);
+                    cout<<this -> produkty[i].getCena();
+                    tp(pion + i,42);
+                    cout<<this -> produkty[i].getIlosc();
+                    tp(pion + i,54);
+                    cout<<(this -> produkty[i].getRezerwacja())+(this -> produkty[i].getWyslane());
+                    tp(pion + i,69);
+                    cout<<this -> produkty[i].getRezerwacja();
+                    tp(pion + i,86);
+                    cout<<this -> produkty[i].getRezerwacja();
+                    tp(pion + i,90);
+                    if(this -> produkty[i].getStatus() == true)
+                    {
+                        cout<<"ukryty";
+                    }
+                    else
+                    {
+                        cout<<"odkryty";
+                    }
+                }
+                cout<<endl;
+                system("pause");
             break;
             case '3':
-                //kiedys
+                this -> setArch(true);
+                this -> wyswietl();
             break;
             case '4':
                 //kiedys
@@ -273,6 +325,14 @@ void Katalog::generuj(int x)
         this -> produkty[(this -> dane + i)].losuj(this -> dane + i);
     }
     this -> dane = this -> dane + x;    
+}
+void Katalog::setArch(bool x)
+{
+    this -> arch = x;
+}
+bool Katalog::getArch()
+{
+    return this -> arch;
 }
 //
 //    ----------------------------

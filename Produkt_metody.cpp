@@ -32,6 +32,7 @@ void Produkt::losuj(int id)
     this -> setWyslane(liczba%200+1);
     this -> setWyslane(liczba%2000+1);
     this -> setCena(liczba%500+1);
+    this -> odzyskaj();
 }
 bool Produkt::zarezeruj(int ile)
 {

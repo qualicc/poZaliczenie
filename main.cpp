@@ -49,6 +49,7 @@ class Katalog:public Produkt
     protected:
         int wielkosc,ID, aktualny = 0, dane = 0;
         string nazwa = "";
+        bool arch = false;
         Produkt bufor, *produkty;
 
     public:
@@ -60,6 +61,8 @@ class Katalog:public Produkt
         void poprzedni();
         void wyswietl();
         void setNazwa(string naz);
+        void setArch(bool x);
+        bool getArch();
         void menu();
         string getNazwa();
         void generuj(int x);

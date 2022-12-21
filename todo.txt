@@ -2,10 +2,10 @@ zapisz
 wczytaj
 zapisz pod nazwą
 sortuj po id/cena/sprzedane
-kosz
+kosz                                                X
 filtr nazwa/cena/sprzedane
 dodaj jeden
-przegląd wszystkich
+przegląd wszystkich                                 X
 export xml
 usuwanie wyfiltrowanych
 zapis wyszukiwania do pliku
@@ -28,10 +28,11 @@ co zmienia koncept instrukcji zamieniającej
 
 jak kurwa zrobić wczytanie po danej nazwie???
 
-
-przerobić funkcje wyświatlania pod t and f dla maina i archa(parametr wyszukiwania)
-
-
-testować porównywanie znaków w string
+-------------------------------------------------------------------------------------------------------------------------
+testować porównywanie znaków w string 
+                 ||
+                 \/
+porównywanie stringów polega na klasycznym porównaniu ascii
+czyli jesli wartosc jednego przekroczy 96 to trzeba odjąć 32
 
 
