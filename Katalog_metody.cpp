@@ -242,7 +242,7 @@ void Katalog::menu()
         cout<<"|2. Przegladaj wszystkie |"<<endl;
         cout<<"|3. Kosz                 |"<<endl;
         cout<<"|4. Sortuj               |"<<endl;
-        cout<<"|5. Filtruj              |"<<endl;
+        cout<<"|5. Wyszukaj             |"<<endl;
         cout<<"|6. Dodaj jeden          |"<<endl;   
         cout<<"|7. Generuj              |"<<endl;
         cout<<"|                        |"<<endl;
@@ -296,7 +296,30 @@ void Katalog::menu()
                 //kiedys
             break;
             case '5':
-                //kiedys
+                do
+                {
+                    fflush(stdin);
+                    system("cls");
+                    cout<<"Wyszukaj"<<endl<<"Wybierz kryterium:"<<endl<<"1. Nazwa"<<endl<<"2. Cena";
+                    cout<<endl<<"ESC. wyjscie"<<endl;
+                    input = getch();
+                    switch (input)
+                    {
+                    case '1':
+                        cout<<"Podaj calosc lub fragment nazwy: "<<endl;
+                        getline( cin, nazw );
+                        this -> poNazwie(nazw);
+                        break;
+                    case '2':
+                        /* code */
+                        break;
+                    default:
+                        cout<<"zla opcja";
+                        break;
+                    }
+
+                } while (input != 27);
+                
             break;
             case '6':
                 if((this -> dane + 1) <= this -> wielkosc)
@@ -443,6 +466,31 @@ bool Katalog::zamienJeden(int id)
         }
     }   
     return false;
+}
+void Katalog::poNazwie(string text)
+{
+    this -> counterWyszukane = 0;
+    this -> wyszukane =  new Produkt[this -> dane];
+    int textLen = text.length()-1, checker;
+    string nazwa;
+    for (int i = 0; i <= this -> dane; i++)
+    {
+        checker = 0;
+        nazwa = this -> produkty[i].getNazwaProd();
+        for (int k = 0; k <= textLen; k++)
+        {
+            if (nazwa[k] == text[k])
+            {
+                checker++;
+            }
+        }
+        if (checker == textLen)
+        {
+            this -> wyszukane[this -> counterWyszukane] = this -> produkty[i];
+            (this -> counterWyszukane)++;
+        }
+    }
+    
 }
 //
 //    ----------------------------

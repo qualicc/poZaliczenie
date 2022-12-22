@@ -42,16 +42,17 @@ class Produkt
         int  getRezerwacja();
         int  getWyslane();
         void setStatus(bool status);
+        
 
 };
 
 class Katalog:public Produkt
 {
     protected:
-        int wielkosc,ID, aktualny = 0, dane = 0;
+        int wielkosc,ID, aktualny = 0, dane = 0, counterWyszukane = 0;
         string nazwa = "";
         bool arch = false;
-        Produkt bufor, *produkty;
+        Produkt bufor, *produkty, *wyszukane;
 
     public:
         bool import();
@@ -68,6 +69,7 @@ class Katalog:public Produkt
         void generuj(int x);
         bool zamienJeden(int);
         bool dodajJeden(int i);
+        void poNazwie(string text);
 };
 
 class User
