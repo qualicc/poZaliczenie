@@ -41,6 +41,7 @@ class Produkt
         int  getIlosc();
         int  getRezerwacja();
         int  getWyslane();
+        void setStatus(bool status);
 
 };
 
@@ -53,7 +54,6 @@ class Katalog:public Produkt
         Produkt bufor, *produkty;
 
     public:
-        //Katalog(int rozmiar);
         bool import();
         bool save();
         void buduj(int x);
@@ -66,12 +66,8 @@ class Katalog:public Produkt
         void menu();
         string getNazwa();
         void generuj(int x);
-
-        
-
-
-        // generowanie wielkości katalogu w konstrukcie poprzez wartość przekazywaną do konstrukta
-        //
+        bool zamienJeden(int);
+        bool dodajJeden(int i);
 };
 
 class User

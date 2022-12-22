@@ -219,7 +219,7 @@ string Katalog::getNazwa()
 }
 void Katalog::menu()
 {
-    int koniecLini = 26, pion = 20, cyfra;
+    int koniecLini = 26, pion = 20, cyfra, sth;
     char input = 0;
     string nazw;
     do
@@ -259,7 +259,7 @@ void Katalog::menu()
             break;
             case '2':
                 cout<<"  ID      Nazwa               Cena        Ilosc       Sprzedano      Rezerwacja       Wyslano"<<endl;
-                for (int i = 0; i <= this -> dane+4; i++)
+                for (int i = 0; i <= (this -> dane-1); i++)
                 {
                     tp(pion + i,2);
                     cout<<this -> produkty[i].getID();
@@ -367,9 +367,10 @@ void Katalog::menu()
                     } while (cyfra <= 0);
                     cout<<endl<<"Napewno chcesz dodac? T/N"<<endl;
                     input = getch();
-                    if(input == 'T' || input == 't')
+                    if(input == 84 || input == 116)
                     {
-                        if(this -> zamienJeden((this -> dane + 1)))
+                    
+                        if(this -> dodajJeden((this -> dane)))
                         {
                             this -> dane = this -> dane + 1;
                             cout<<endl<<"Dodano pomyslnie"<<endl;
@@ -405,7 +406,7 @@ void Katalog::generuj(int x)
 {
     for (int i = 0; i <= (x - 1); i++)
     {
-        this -> produkty[(this -> dane + i)].losuj(this -> dane + i);
+        this -> produkty[(this -> dane + i)].losuj(this -> dane + i + 1);
     }
     this -> dane = this -> dane + x;    
 }
@@ -417,9 +418,23 @@ bool Katalog::getArch()
 {
     return this -> arch;
 }
+bool Katalog::dodajJeden(int i)
+{
+    try
+    {
+        this -> produkty[(i)] = this -> bufor;
+        return true;
+    }
+    catch(const std::exception& e)
+    {
+        return false;
+    }
+    
+    
+}
 bool Katalog::zamienJeden(int id)
 {
-    for (int i = 0; i < this ->dane; i++)
+    for (int i = 0; i < this -> dane; i++)
     {
         if(id == this -> produkty[i].getID())
         {

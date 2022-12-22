@@ -142,13 +142,3 @@ void Produkt::setStatus(bool status)
 {
     this -> ukrycie = status;
 }
-void Produkt::setAll(int id, string name, int cena, int ilosc, int rezerwacje, int wyslane , bool status)
-{
-    this -> setID(id);
-    this -> setNazwaProd(name);
-    this -> setIlosc(ilosc);
-    this -> setRezerwacja(rezerwacje);
-    this -> setWyslane(wyslane);
-    this -> setCena(cena);
-    this -> setStatus(status);
-}

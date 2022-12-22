@@ -4,7 +4,7 @@ zapisz pod nazwą
 sortuj po id/cena/sprzedane
 kosz                                                X
 filtr nazwa/cena/sprzedane
-dodaj jeden
+dodaj jeden                                         X
 przegląd wszystkich                                 X
 export xml
 usuwanie wyfiltrowanych
