@@ -3,11 +3,11 @@ wczytaj
 zapisz pod nazwą
 sortuj po id/cena/sprzedane
 kosz                                                X
-filtr nazwa/cena/sprzedane
+filtr nazwa/cena                                    X
 dodaj jeden                                         X
 przegląd wszystkich                                 X
 export xml
-usuwanie wyfiltrowanych
+usuwanie wyfiltrowanych                             X
 zapis wyszukiwania do pliku
 wydruk do pliku txt
 wyszukiwanie podwójne

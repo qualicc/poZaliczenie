@@ -67,6 +67,8 @@ void Katalog::wyswietl()
     int koniecLini = 28, cyfra;
     char input = 0;
     string nazw;
+    this -> aktualny = 0;   
+    
     do
     {
         fflush(stdin);
@@ -90,8 +92,6 @@ void Katalog::wyswietl()
         tp(7,koniecLini);cout<<"|"<<endl;
         cout<<"|wyslano: "<< this -> produkty[this ->aktualny].getWyslane();
         tp(8,koniecLini);cout<<"|"<<endl;
-        cout<<"|akutalny: "<< this -> aktualny;
-        tp(9,koniecLini);cout<<"|"<<endl;
         cout<<"|                          |"<<endl;
         cout<<"|##########################|"<<endl;
         cout<<"|1. Zmien dane             |"<<endl;
@@ -219,7 +219,7 @@ string Katalog::getNazwa()
 }
 void Katalog::menu()
 {
-    int koniecLini = 26, pion = 20, cyfra, sth;
+    int koniecLini = 26, pion = 20, cyfra, sth, l1,l2;
     char input = 0;
     string nazw;
     do
@@ -258,7 +258,7 @@ void Katalog::menu()
                 this -> wyswietl();
             break;
             case '2':
-                cout<<"  ID      Nazwa               Cena        Ilosc       Sprzedano      Rezerwacja       Wyslano"<<endl;
+                cout<<" ID      Nazwa               Cena        Ilosc       Sprzedano      Rezerwacja       Wyslano"<<endl;
                 for (int i = 0; i <= (this -> dane-1); i++)
                 {
                     tp(pion + i,2);
@@ -311,14 +311,28 @@ void Katalog::menu()
                         this -> poNazwie(nazw);
                         break;
                     case '2':
-                        /* code */
+                        cout<<"Podaj przedzial min, max. (alby wybrac na podstawie jednej wartosci wprowadz 2 razy ta sama wartosc)"<<endl;
+                        cin>>l1;
+                        cout<<"-------------------"<<endl;
+                        cin>> l2;
+                        if (l1 <= l2 && l1 > 0)
+                        {
+                            wyszukniePrzedzialCena(l1, l2);
+                        }
+                        else
+                        {
+                            cout<<"blad";
+                        }
                         break;
+                    case 27:
+                        input = 0;
+                    break;
                     default:
                         cout<<"zla opcja";
                         break;
                     }
 
-                } while (input != 27);
+                } while (input != 0);
                 
             break;
             case '6':
@@ -471,7 +485,7 @@ void Katalog::poNazwie(string text)
 {
     this -> counterWyszukane = 0;
     this -> wyszukane =  new Produkt[this -> dane];
-    int textLen = text.length()-1, checker;
+    int textLen = text.length(), checker;
     string nazwa;
     for (int i = 0; i <= this -> dane; i++)
     {
@@ -479,10 +493,11 @@ void Katalog::poNazwie(string text)
         nazwa = this -> produkty[i].getNazwaProd();
         for (int k = 0; k <= textLen; k++)
         {
-            if (nazwa[k] == text[k])
+            if (nazwa[k] == text[k] || (nazwa[k] + 32) == text[k] || (nazwa[k] - 32) == text[k])
             {
                 checker++;
-            }
+            }                
+
         }
         if (checker == textLen)
         {
@@ -490,7 +505,263 @@ void Katalog::poNazwie(string text)
             (this -> counterWyszukane)++;
         }
     }
+    if(this -> counterWyszukane > 0)
+    {
+        this -> wyswietlaniePoWyszukaniu();
+    }
+    else
+    {
+        cout<<"nie znleziono";
+        system("pause");
+    }
     
+}
+void Katalog::wyswietlaniePoWyszukaniu()
+{
+    int koniecLini = 28, cyfra;
+    char input = 0;
+    string nazw;
+
+    this -> aktualny = 0;
+
+    do
+    {
+        fflush(stdin);
+        system("cls");
+        cout<<"----------Wyszukane---------"<<endl;
+        cout<<"|Ilosc wyszukanych: "<<this -> counterWyszukane;
+        tp(2,koniecLini);cout<<"|"<<endl;
+        cout<<"|                          |"<<endl;
+        cout<<"|ID: "<<this -> wyszukane[this ->aktualny].getID();
+        tp(4,koniecLini);cout<<"|"<<endl;
+        cout<<"|nazwa: "<< this -> wyszukane[this ->aktualny].getNazwaProd();
+        tp(5,koniecLini);cout<<"|"<<endl;
+        cout<<"|cena: "<< this -> wyszukane[this ->aktualny].getCena();
+        tp(6,koniecLini);cout<<"|"<<endl;
+        cout<<"|ilosc: "<< this -> wyszukane[this ->aktualny].getIlosc();
+        tp(7,koniecLini);cout<<"|"<<endl;
+        cout<<"|sprzedano: "<< (this -> wyszukane[this ->aktualny].getRezerwacja())+(this -> wyszukane[this ->aktualny].getWyslane());
+        tp(8,koniecLini);cout<<"|"<<endl;
+        cout<<"|rezerwacja: "<< this -> wyszukane[this ->aktualny].getRezerwacja();
+        tp(9,koniecLini);cout<<"|"<<endl;
+        cout<<"|wyslano: "<< this -> wyszukane[this ->aktualny].getWyslane();
+        tp(10,koniecLini);cout<<"|"<<endl;
+        cout<<"|                          |"<<endl;
+        cout<<"|##########################|"<<endl;
+        cout<<"|1. Zmien dane             |"<<endl;
+        cout<<"|2. Archiwizuj wyszystkie  |"<<endl;
+        cout<<"|                          |"<<endl;
+        cout<<"|                          |"<<endl;
+        cout<<"|ESC. Wyjdz                |"<<endl;
+        cout<<"|<A                      D>|"<<endl;
+        cout<<"----------------------------"<<endl;   
+
+        input = getch();
+        switch (input)
+        {
+        case '1':
+            bufor.setID(this ->produkty[this -> aktualny].getID());
+            cout<<"Podaj nazwe: ";
+            getline( cin, nazw );
+            bufor.setNazwaProd(nazw);
+            do
+            {
+                cout<<endl<<"Podaj cene: ";
+                cin>>cyfra;
+                if (cyfra <= 0)
+                {
+                    cout<<"zla wartosc";
+                }
+                else
+                {
+                    this -> bufor.setCena(cyfra);
+                }
+                
+            } while (cyfra <= 0);
+            cyfra = 0;
+            do
+            {
+                cout<<endl<<"Podaj ilosc: ";
+                cin>>cyfra;
+                if (cyfra <= 0)
+                {
+                    cout<<"zla wartosc";
+                }
+                else
+                {
+                    this -> bufor.setIlosc(cyfra);
+                }
+                
+            } while (cyfra <= 0);
+            cyfra = 0;
+            do
+            {
+                cout<<endl<<"Podaj ilosc zarezerwowanych: ";
+                cin>>cyfra;
+                if (cyfra <= 0)
+                {
+                    cout<<"zla wartosc";
+                }
+                else
+                {
+                    this -> bufor.setRezerwacja(cyfra);
+                }
+                
+            } while (cyfra <= 0);
+            cyfra = 0;
+            do
+            {
+                cout<<endl<<"Podaj ilosc wyslanych: ";
+                cin>>cyfra;
+                if (cyfra <= 0)
+                {
+                    cout<<"zla wartosc";
+                }
+                else
+                {
+                    this -> bufor.setWyslane(cyfra);
+                }
+                
+            } while (cyfra <= 0);
+            cout<<endl<<"Napewno chcesz zamienic? T/N"<<endl;
+            input = getch();
+            if(input == 'T' || input == 't')
+            {
+                if(this -> zamienJeden(this ->produkty[this -> aktualny].getID()))
+                {
+                    cout<<endl<<"Zamieniono pomyslnie"<<endl;
+                    system("pause");
+                }
+            }
+        break;
+        
+        case '2':
+            if(archiwizujWyszuakne())
+            {
+                cout<<"zarchiwizowano prawidlowo";
+            }
+        break;
+
+        case 'a':
+        case 'A':
+            this -> prevWysz();
+        break;
+    
+        case 'd':
+        case 'D':
+            this -> nextWysz();
+        break;
+        
+        default:
+            cout<<"zla komenda";
+        break;
+        }
+    } while (input != 27);
+    input = 0;
+}
+bool Katalog::archiwizujWyszuakne()
+{
+    try
+    {
+        for (int i = 0; i < (this -> counterWyszukane - 1); i++)
+        {
+            for (int k = 0; k < this -> dane; k++)
+            {
+                if(this -> produkty[k].getID() == this -> wyszukane[i].getID())
+                {
+                    this -> produkty[k].ukryj();
+                }
+            }
+        }
+        return true;
+    }
+    catch(const std::exception& e)
+    {
+        cout<<"blad masowego usuwania";
+        return false;
+    }
+}
+void Katalog::nextWysz()
+{
+    int x = 1;
+
+    if((this -> aktualny+1) <= this -> counterWyszukane)
+    {
+        do
+        {
+            if (this -> produkty[aktualny+x].getStatus() != getArch())
+            {
+                x++;
+            }
+
+        } while (this -> produkty[aktualny+x].getStatus() != getArch());
+
+        if ((x + this -> aktualny) >= this -> counterWyszukane)
+        {
+            x = 0;
+        }
+
+        this -> aktualny = aktualny + x;
+    }
+}
+void Katalog::prevWysz()
+{
+        int x = 1;
+
+    if(0 <= (this -> aktualny-1))
+    {
+        do
+        {
+            if (this -> produkty[aktualny-x].getStatus() != getArch())
+            {
+                x++;
+            }
+
+        } while (this -> produkty[aktualny-x].getStatus() != getArch());
+
+        if (this -> aktualny - x < 0)
+        {
+            x = 0;
+        }
+        
+        this -> aktualny = aktualny - x;
+    }
+}
+void Katalog::wyszukniePrzedzialCena(float min, float max)
+{
+    this -> counterWyszukane = 0;
+    this -> wyszukane =  new Produkt[this -> dane];
+    if(min != max)
+    {
+        for (int i = 0; i <= this -> dane; i++)
+        {
+            if(this -> produkty[i].getCena() >= min && this -> produkty[i].getCena() <= max)
+            {
+                this -> wyszukane[this -> counterWyszukane] = this ->produkty[i];
+                (this -> counterWyszukane)++;
+            }
+        }
+    }
+    else
+    {
+        for (int i = 0; i <= this -> dane; i++)
+        {
+            if(this -> produkty[i].getCena() == min)
+            {
+                this -> wyszukane[this -> counterWyszukane] = this ->produkty[i];
+                (this -> counterWyszukane)++;
+            }
+        }
+    }
+    if(this -> counterWyszukane > 0)
+    {
+        this -> wyswietlaniePoWyszukaniu();
+    }
+    else
+    {
+        cout<<"nie znleziono";
+        system("pause");
+    }
 }
 //
 //    ----------------------------

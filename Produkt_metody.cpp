@@ -23,14 +23,13 @@ void Produkt::odzyskaj()
 }
 void Produkt::losuj(int id)
 {
-    srand(time(NULL));
     int liczba = rand();
     this -> setID(id);
     this -> setNazwaProd("Towar");
-    this -> setIlosc(liczba%800+1);
+    this -> setIlosc(liczba%950+1);
     this -> setRezerwacja(liczba%400+1);
     this -> setWyslane(liczba%2000+1);
-    this -> setCena(liczba%500+1);
+    this -> setCena(liczba%1561+1);
     this -> odzyskaj();
 }
 bool Produkt::zarezeruj(int ile)

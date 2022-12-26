@@ -70,6 +70,11 @@ class Katalog:public Produkt
         bool zamienJeden(int);
         bool dodajJeden(int i);
         void poNazwie(string text);
+        void wyswietlaniePoWyszukaniu();
+        bool archiwizujWyszuakne();
+        void nextWysz();
+        void prevWysz();
+        void wyszukniePrzedzialCena(float min, float max);
 };
 
 class User
