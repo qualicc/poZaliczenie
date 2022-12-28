@@ -219,7 +219,7 @@ string Katalog::getNazwa()
 }
 void Katalog::menu()
 {
-    int koniecLini = 26, pion = 20, cyfra, sth, l1,l2;
+    int koniecLini = 26, pion = 20, cyfra, sth, l1, l2, kierunek;
     char input = 0;
     string nazw;
     do
@@ -293,7 +293,43 @@ void Katalog::menu()
                 this -> wyswietl();
             break;
             case '4':
-                //kiedys
+                do
+                {
+                    fflush(stdin);
+                    system("cls");
+                    cout<<"0 - rosnaco, 1 - malejaco";
+                    do
+                    {
+                        cin >> kierunek;
+                        if(kierunek != 1 && kierunek != 0)
+                        {
+                            cout<<"zla komenda";
+                        }
+                    } while ((kierunek != 1 && kierunek != 0));
+
+                    cout<<"Sortuj"<<endl<<"Wybierz kryterium:"<<endl<<"1. Nazwa"<<endl<<"2. Cena"<<endl<<"3. ID";
+                    cout<<endl<<"ESC. wyjscie"<<endl;
+                    input = getch();
+                    switch (input)
+                    {
+                    case '1':
+                        
+                        break;
+                    case '2':
+                        
+                        break;
+                    case '3':
+                        
+                        break;
+                    case 27:
+                        input = 0;
+                    break;
+                    default:
+                        cout<<"zla opcja";
+                        break;
+                    }
+
+                } while (input != 0);
             break;
             case '5':
                 do
@@ -762,6 +798,125 @@ void Katalog::wyszukniePrzedzialCena(float min, float max)
         cout<<"nie znleziono";
         system("pause");
     }
+}
+void Katalog::sortNazwa(bool kierunek)
+{
+    string t1,t2;
+    int l, t1L,t2L
+    for(int i = 0; i < this -> dane; i++)
+    {
+        for(int k = 1; k < (this -> dane - i); k++)
+        {           
+            t1 = this -> produkty[k - 1].getNazwaProd();
+            t2 = this -> produkty[k].getNazwaProd();
+            switch (kierunek)
+            {
+            case 1:
+                {
+                    if (t1.length() => t2.length())
+                    {
+                        do
+                        {
+                            if(t1[l] > t2[l])
+                            {
+                                this -> bufor = this -> produkty[k - 1];
+                                this -> produkty[k - 1] = this -> produkty[k];
+                                this -> produkty[k] = this -> bufor;
+                                break;
+                            }
+                            else if (t1[l] == t2[l])
+                            {
+                                l++;
+                            }
+                            else
+                            {
+                                break;
+                            }    
+                        } while (t1[l] == t2[l] || t1.length() >= l);
+                    }
+                    else
+                    {
+                        do
+                        {
+                            if(t1[l] > t2[l])
+                            {
+                                this -> bufor = this -> produkty[k - 1];
+                                this -> produkty[k - 1] = this -> produkty[k];
+                                this -> produkty[k] = this -> bufor;
+                                break;
+                            }
+                            else if (t1[l] == t2[l])
+                            {
+                                l++;
+                            }
+                            else
+                            {
+                                break;
+                            }    
+                        } while (t1[l] == t2[l] || t2.length() >= l);                
+                    }
+                }
+                break;
+            
+            case 2:
+                {
+                    if (t1.length() => t2.length())
+                    {
+                        do
+                        {
+                            if(t1[l] < t2[l])
+                            {
+                                this -> bufor = this -> produkty[k - 1];
+                                this -> produkty[k - 1] = this -> produkty[k];
+                                this -> produkty[k] = this -> bufor;
+                                break;
+                            }
+                            else if (t1[l] == t2[l])
+                            {
+                                l++;
+                            }
+                            else
+                            {
+                                break;
+                            }    
+                        } while (t1[l] == t2[l] || t1.length() >= l);
+                    }
+                    else
+                    {
+                        do
+                        {
+                            if(t1[l] < t2[l])
+                            {
+                                this -> bufor = this -> produkty[k - 1];
+                                this -> produkty[k - 1] = this -> produkty[k];
+                                this -> produkty[k] = this -> bufor;
+                                break;
+                            }
+                            else if (t1[l] == t2[l])
+                            {
+                                l++;
+                            }
+                            else
+                            {
+                                break;
+                            }    
+                        } while (t1[l] == t2[l] || t2.length() >= l);                
+                    }
+                }
+                break;
+            }
+            
+        }
+    }
+		
+}
+void Katalog::sortCena(bool kierunek)
+{
+
+}
+void Katalog::sortId(bool kierunek)
+{
+
 }
 //
 //    ----------------------------

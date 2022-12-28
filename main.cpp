@@ -75,6 +75,9 @@ class Katalog:public Produkt
         void nextWysz();
         void prevWysz();
         void wyszukniePrzedzialCena(float min, float max);
+        void sortNazwa(bool kierunek);
+        void sortCena(bool kierunek);
+        void sortId(bool kierunek);
 };
 
 class User
