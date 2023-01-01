@@ -1,7 +1,7 @@
 zapisz
 wczytaj
 zapisz pod nazwą
-sortuj po id/cena/sprzedane
+sortuj po id/cena/sprzedane                         X
 kosz                                                X
 filtr nazwa/cena                                    X
 dodaj jeden                                         X
@@ -10,8 +10,6 @@ export xml
 usuwanie wyfiltrowanych                             X
 zapis wyszukiwania do pliku
 wydruk do pliku txt
-wyszukiwanie podwójne
-
 
 
 

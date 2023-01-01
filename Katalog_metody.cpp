@@ -313,13 +313,16 @@ void Katalog::menu()
                     switch (input)
                     {
                     case '1':
-                        
+                        this -> sortNazwa(kierunek);
+                        input = 0;
                         break;
                     case '2':
-                        
+                        this -> sortCena(kierunek);
+                        input = 0;
                         break;
                     case '3':
-                        
+                        this -> sortId(kierunek);
+                        input = 0;
                         break;
                     case 27:
                         input = 0;
@@ -801,108 +804,28 @@ void Katalog::wyszukniePrzedzialCena(float min, float max)
 }
 void Katalog::sortNazwa(bool kierunek)
 {
-    string t1,t2;
-    int l, t1L,t2L;
     for(int i = 0; i < this -> dane; i++)
     {
         for(int k = 1; k < (this -> dane - i); k++)
         {           
-            t1 = this -> produkty[k - 1].getNazwaProd();
-            t2 = this -> produkty[k].getNazwaProd();
             switch (kierunek)
             {
             case 0:
+                if(this -> produkty[k - 1].getNazwaProd() > this -> produkty[k].getNazwaProd())
                 {
-                    if (t1.length() >= t2.length())
-                    {
-                        do
-                        {
-                            if(t1[l] > t2[l])
-                            {
-                                this -> bufor = this -> produkty[k - 1];
-                                this -> produkty[k - 1] = this -> produkty[k];
-                                this -> produkty[k] = this -> bufor;
-                                break;
-                            }
-                            else if (t1[l] == t2[l])
-                            {
-                                l++;
-                            }
-                            else
-                            {
-                                break;
-                            }    
-                        } while (t1[l] == t2[l] || t1.length() >= l);
-                    }
-                    else
-                    {
-                        do
-                        {
-                            if(t1[l] > t2[l])
-                            {
-                                this -> bufor = this -> produkty[k - 1];
-                                this -> produkty[k - 1] = this -> produkty[k];
-                                this -> produkty[k] = this -> bufor;
-                                break;
-                            }
-                            else if (t1[l] == t2[l])
-                            {
-                                l++;
-                            }
-                            else
-                            {
-                                break;
-                            }    
-                        } while (t1[l] == t2[l] || t2.length() >= l);                
-                    }
+                    this -> bufor = this -> produkty[k - 1];
+                    this -> produkty[k - 1] = this -> produkty[k];
+                    this -> produkty[k] = this -> bufor;
                 }
                 break;
             
             case 1:
+                if(this -> produkty[k - 1].getNazwaProd() < this -> produkty[k].getNazwaProd())
                 {
-                    if (t1.length() >= t2.length())
-                    {
-                        do
-                        {
-                            if(t1[l] < t2[l])
-                            {
-                                this -> bufor = this -> produkty[k - 1];
-                                this -> produkty[k - 1] = this -> produkty[k];
-                                this -> produkty[k] = this -> bufor;
-                                break;
-                            }
-                            else if (t1[l] == t2[l])
-                            {
-                                l++;
-                            }
-                            else
-                            {
-                                break;
-                            }    
-                        } while (t1[l] == t2[l] || t1.length() >= l);
-                    }
-                    else
-                    {
-                        do
-                        {
-                            if(t1[l] < t2[l])
-                            {
-                                this -> bufor = this -> produkty[k - 1];
-                                this -> produkty[k - 1] = this -> produkty[k];
-                                this -> produkty[k] = this -> bufor;
-                                break;
-                            }
-                            else if (t1[l] == t2[l])
-                            {
-                                l++;
-                            }
-                            else
-                            {
-                                break;
-                            }    
-                        } while (t1[l] == t2[l] || t2.length() >= l);                
-                    }
-                }
+                    this -> bufor = this -> produkty[k - 1];
+                    this -> produkty[k - 1] = this -> produkty[k];
+                    this -> produkty[k] = this -> bufor;
+                }                
                 break;
             }
             
@@ -912,11 +835,63 @@ void Katalog::sortNazwa(bool kierunek)
 }
 void Katalog::sortCena(bool kierunek)
 {
-
+    for(int i = 0; i < this -> dane; i++)
+    {
+        for(int k = 1; k < (this -> dane - i); k++)
+        {           
+            switch (kierunek)
+            {
+            case 0:
+                if(this -> produkty[k - 1].getCena() > this -> produkty[k].getCena())
+                {
+                    this -> bufor = this -> produkty[k - 1];
+                    this -> produkty[k - 1] = this -> produkty[k];
+                    this -> produkty[k] = this -> bufor;
+                }
+                break;
+            
+            case 1:
+                if(this -> produkty[k - 1].getCena() < this -> produkty[k].getCena())
+                {
+                    this -> bufor = this -> produkty[k - 1];
+                    this -> produkty[k - 1] = this -> produkty[k];
+                    this -> produkty[k] = this -> bufor;
+                }                
+                break;
+            }
+            
+        }
+    }
 }
 void Katalog::sortId(bool kierunek)
 {
-
+    for(int i = 0; i < this -> dane; i++)
+    {
+        for(int k = 1; k < (this -> dane - i); k++)
+        {           
+            switch (kierunek)
+            {
+            case 0:
+                if(this -> produkty[k - 1].getID() > this -> produkty[k].getID())
+                {
+                    this -> bufor = this -> produkty[k - 1];
+                    this -> produkty[k - 1] = this -> produkty[k];
+                    this -> produkty[k] = this -> bufor;
+                }
+                break;
+            
+            case 1:
+                if(this -> produkty[k - 1].getID() < this -> produkty[k].getID())
+                {
+                    this -> bufor = this -> produkty[k - 1];
+                    this -> produkty[k - 1] = this -> produkty[k];
+                    this -> produkty[k] = this -> bufor;
+                }                
+                break;
+            }
+            
+        }
+    }
 }
 //
 //    ----------------------------
