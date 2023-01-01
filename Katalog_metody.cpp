@@ -802,7 +802,7 @@ void Katalog::wyszukniePrzedzialCena(float min, float max)
 void Katalog::sortNazwa(bool kierunek)
 {
     string t1,t2;
-    int l, t1L,t2L
+    int l, t1L,t2L;
     for(int i = 0; i < this -> dane; i++)
     {
         for(int k = 1; k < (this -> dane - i); k++)
@@ -811,9 +811,9 @@ void Katalog::sortNazwa(bool kierunek)
             t2 = this -> produkty[k].getNazwaProd();
             switch (kierunek)
             {
-            case 1:
+            case 0:
                 {
-                    if (t1.length() => t2.length())
+                    if (t1.length() >= t2.length())
                     {
                         do
                         {
@@ -858,9 +858,9 @@ void Katalog::sortNazwa(bool kierunek)
                 }
                 break;
             
-            case 2:
+            case 1:
                 {
-                    if (t1.length() => t2.length())
+                    if (t1.length() >= t2.length())
                     {
                         do
                         {
