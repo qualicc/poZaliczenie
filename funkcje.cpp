@@ -11,7 +11,6 @@
 #include <algorithm>
 using namespace std;
 
-
 bool WOZI(int x)
 {
     if(x >0)

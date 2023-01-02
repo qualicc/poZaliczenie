@@ -245,6 +245,8 @@ void Katalog::menu()
         cout<<"|5. Wyszukaj             |"<<endl;
         cout<<"|6. Dodaj jeden          |"<<endl;   
         cout<<"|7. Generuj              |"<<endl;
+        cout<<"|8. Zapisz               |"<<endl;
+        cout<<"|9. Drukuj               |"<<endl;
         cout<<"|                        |"<<endl;
         cout<<"|                        |"<<endl;
         cout<<"|ESC. Wyjdz              |"<<endl;
@@ -470,7 +472,21 @@ void Katalog::menu()
                 generuj(ile);
                 
             break;
-
+            case '8':
+                //todo
+            break;
+            case '9': 
+                if (this -> print(0))
+                {
+                    cout<<"Wydrukowano poprawnie";
+                    system("pause");
+                }
+                else
+                {
+                    cout<<"Wystapil blad";
+                    system("pause");
+                }
+            break;
             default:
             cout<<"zla komenda";
             break;
@@ -589,6 +605,7 @@ void Katalog::wyswietlaniePoWyszukaniu()
         cout<<"|##########################|"<<endl;
         cout<<"|1. Zmien dane             |"<<endl;
         cout<<"|2. Archiwizuj wyszystkie  |"<<endl;
+        cout<<"|3. Zapisz wyszukane       |"<<endl;
         cout<<"|                          |"<<endl;
         cout<<"|                          |"<<endl;
         cout<<"|ESC. Wyjdz                |"<<endl;
@@ -680,7 +697,9 @@ void Katalog::wyswietlaniePoWyszukaniu()
                 cout<<"zarchiwizowano prawidlowo";
             }
         break;
-
+        case '3':
+            //todo
+        break;
         case 'a':
         case 'A':
             this -> prevWysz();
@@ -892,6 +911,29 @@ void Katalog::sortId(bool kierunek)
             
         }
     }
+}
+bool Katalog::print(bool mode)
+{
+    try
+    {
+        string strN = this -> nazwa;
+        strN.append(".txt");
+        char* nazwaPliku = new char[this -> nazwa.length()];
+        strcpy(nazwaPliku, this -> nazwa.c_str());
+        ofstream file(nazwaPliku);
+        if (!mode)
+        {
+            file<<" ID      Nazwa               Cena        Ilosc       Sprzedano      Rezerwacja       Wyslano"<<endl;
+            // pomoc https://stackoverflow.com/questions/41398913/c-setting-cursor-at-the-exact-line-in-the-file
+        }
+        
+    }
+    catch(const std::exception& e)
+    {
+        cout<< e.what() << '\n';
+        return false;
+    }
+    return false;
 }
 //
 //    ----------------------------

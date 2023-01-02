@@ -78,6 +78,7 @@ class Katalog:public Produkt
         void sortNazwa(bool kierunek);
         void sortCena(bool kierunek);
         void sortId(bool kierunek);
+        bool print(bool mode);
 };
 
 class User
