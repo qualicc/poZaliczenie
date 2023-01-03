@@ -916,17 +916,47 @@ bool Katalog::print(bool mode)
 {
     try
     {
+        long X;
         string strN = this -> nazwa;
         strN.append(".txt");
         char* nazwaPliku = new char[this -> nazwa.length()];
-        strcpy(nazwaPliku, this -> nazwa.c_str());
+        strcpy(nazwaPliku, strN.c_str());
         ofstream file(nazwaPliku);
-        if (!mode)
-        {
-            file<<" ID      Nazwa               Cena        Ilosc       Sprzedano      Rezerwacja       Wyslano"<<endl;
-            // pomoc https://stackoverflow.com/questions/41398913/c-setting-cursor-at-the-exact-line-in-the-file
-        }
+        Produkt *tab; 
+        file<<" ID      Nazwa               Cena        Ilosc       Sprzedano      Rezerwacja       Wyslano"<<endl;
         
+        switch (!mode)
+        {
+        case 1:
+            tab = this -> produkty;
+            break;
+        case 0:
+            tab = this -> wyszukane; 
+            break;        
+        } 
+
+        for (int i = 0; i < this -> dane; i++)
+        {
+            if (tab[i].getStatus() == false)
+            {
+                X = file.tellp();
+                file.seekp (X + 1);
+                file<< tab[i].getID();
+                file.seekp (X + 9);
+                file<< tab[i].getNazwaProd();
+                file.seekp (X + 29);
+                file<< tab[i].getCena();
+                file.seekp (X + 41);
+                file<< tab[i].getIlosc();
+                file.seekp (X + 53);
+                file<< (tab[i].getWyslane() + tab[i].getRezerwacja());
+                file.seekp (X + 68);
+                file<< tab[i].getRezerwacja();
+                file.seekp (X + 85);
+                file<< tab[i].getWyslane()<<endl;
+            }    
+        }
+        return true;
     }
     catch(const std::exception& e)
     {
