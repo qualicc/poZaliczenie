@@ -62,6 +62,7 @@ class Katalog:public Produkt
         void poprzedni();
         void wyswietl();
         void setNazwa(string naz);
+        void setDataCount(int x);
         void setArch(bool x);
         bool getArch();
         void menu();
@@ -79,6 +80,8 @@ class Katalog:public Produkt
         void sortCena(bool kierunek);
         void sortId(bool kierunek);
         bool print(bool mode);
+        bool zapisz(bool mode, string nazwaPliku);
+        void wczytaj(string arr[]);
 };
 
 class User
@@ -111,6 +114,7 @@ main()
         cout<<"Magazyn"<<endl<<endl;
         cout<<"1. Lista magazynow"<<endl;
         cout<<"2. Dodaj magazyn"<<endl;
+        cout<<"3. Wczytaj magazyn"<<endl;
 
         cout<<"ESC. Wyjscie"<<endl;
         input = getch();
@@ -131,6 +135,7 @@ main()
                         //wyberanie magazynu
                         wybrany = input-49;
                         kat[wybrany].menu();
+                        input = 27;
                         break;
                     case 27:
                         break;
@@ -164,12 +169,80 @@ main()
                 } while (wielkosc < 0);
                 
             break;
+            case '3':
+                cout<<"Podaj nazwe pliku (bez rozszerzenia):"<<endl;
+                cin>>nazw;
+                try
+                {
+                    int ilosc;
+                    nazw.append(".save");
+                    char* nazwaKoncowa = new char[nazw.length()];
+                    string buff,arr[8];
+
+                    strcpy(nazwaKoncowa, nazw.c_str());
+                    ifstream file;
+                    file.open(nazwaKoncowa);
+
+                    //podstawowe dane
+                    getline(file,buff);
+                    kat[utworzone].setNazwa(buff);
+                    getline(file,buff);
+                    kat[utworzone].buduj(stoi(buff));
+                    getline(file,buff);
+                    ilosc = stoi(buff);
+                    kat[utworzone].setDataCount(ilosc);
+                    //dane
+                    for (int i = 0; i < ilosc; i++)
+                    {
+                        //ID
+                        getline(file,buff);
+                        arr[0] = buff;
+
+                        //nazwa
+                        getline(file,buff);
+                        arr[1] = buff;
+                        
+                        //cena
+                        getline(file,buff);
+                        arr[2] = buff;
+                        
+                        //ilosc
+                        getline(file,buff);
+                        arr[3] = buff;
+                        
+                        //wyslane
+                        getline(file,buff);
+                        arr[4] = buff;
+                        
+                        //rezerwacja
+                        getline(file,buff);
+                        arr[5] = buff;
+                        
+                        //ukrycie
+                        getline(file,buff);
+                        arr[6] = buff;
+                        
+                        //pozycja
+                        arr[7] = i;
+                        kat[utworzone].wczytaj(arr);
+
+                    }
+
+                    utworzone++;
+                }
+                catch(const std::exception& e)
+                {
+                    cout<<"Wystapil blad"<<endl;
+                    std::cerr << e.what() << '\n';
+                }
+                
+                
+            break;
             case 27:
-                char info;
                 cout<<"napewno wylogowac?"<<endl;
                 cout<<"T/N"<<endl;
-                info = getch();
-                if (info == 'T' || info == 't')
+                input = getch();
+                if (input == 'T' || input == 't')
                 {
                     input = '0';
                 }

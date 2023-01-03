@@ -1,15 +1,14 @@
-zapisz
+zapisz                                              X
 wczytaj
-zapisz pod nazwą
+zapisz pod nazwą                                    X
 sortuj po id/cena/sprzedane                         X
 kosz                                                X
 filtr nazwa/cena                                    X
 dodaj jeden                                         X
 przegląd wszystkich                                 X
-export xml
 usuwanie wyfiltrowanych                             X
-zapis wyszukiwania do pliku
-wydruk do pliku txt
+zapis wyszukiwania do pliku                         X
+wydruk do pliku txt                                 X
 
 
 

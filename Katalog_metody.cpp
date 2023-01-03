@@ -217,6 +217,10 @@ string Katalog::getNazwa()
 {
     return this -> nazwa;
 }
+void Katalog::setDataCount(int x)
+{
+    this -> dane = x; 
+}
 void Katalog::menu()
 {
     int koniecLini = 26, pion = 20, cyfra, sth, l1, l2, kierunek;
@@ -473,19 +477,59 @@ void Katalog::menu()
                 
             break;
             case '8':
-                //todo
+                do
+                {
+                    cout<<"Zapisz: 0, Zapisz jako: 1, Anuluj: ESC"<<endl;
+                    cin>>input;
+                    switch (input)
+                    {
+                    case '0':
+                        if (this -> zapisz(0, ""))
+                        {
+                            cout<<"Zapisano poprawnie"<<endl;
+                        }
+                        else
+                        {
+                            cout<<"Wystapil blad"<<endl;  
+                        }
+                        system("pause"); 
+                        input = 0;
+                        break;
+                    case '1':
+                        cout<<"Podaj Nazwe: "<<endl;
+                        cin>>nazw;
+                        if (this -> zapisz(0, nazw))
+                        {
+                            cout<<"Zapisano poprawnie"<<endl;
+                        }
+                        else
+                        {
+                            cout<<"Wystapil blad"<<endl;  
+                        }
+                        system("pause");
+                        input = 0;
+                        break;
+                    case 27:
+                        input = 0;
+                        break;
+                    default:
+                        cout<<"Zla wartosc"<<endl;
+                        break;
+                    }
+                } while (input != 0);
+                
+                
             break;
             case '9': 
                 if (this -> print(0))
                 {
-                    cout<<"Wydrukowano poprawnie";
-                    system("pause");
+                    cout<<"Wydrukowano poprawnie"<<endl;
                 }
                 else
                 {
-                    cout<<"Wystapil blad";
-                    system("pause");
+                    cout<<"Wystapil blad"<<endl;  
                 }
+                system("pause");
             break;
             default:
             cout<<"zla komenda";
@@ -606,6 +650,7 @@ void Katalog::wyswietlaniePoWyszukaniu()
         cout<<"|1. Zmien dane             |"<<endl;
         cout<<"|2. Archiwizuj wyszystkie  |"<<endl;
         cout<<"|3. Zapisz wyszukane       |"<<endl;
+        cout<<"|4. Wydrukuj wyszukane     |"<<endl;
         cout<<"|                          |"<<endl;
         cout<<"|                          |"<<endl;
         cout<<"|ESC. Wyjdz                |"<<endl;
@@ -698,7 +743,26 @@ void Katalog::wyswietlaniePoWyszukaniu()
             }
         break;
         case '3':
-            //todo
+            if (this -> zapisz(1,""))
+            {
+                cout<<"Zapisano poprawnie";
+            }
+            else
+            {
+                cout<<"Wystapil blad";  
+            }
+            system("pause");
+        break;
+        case '4':
+            if (this -> print(1))
+            {
+                cout<<"Wydrukowano poprawnie";
+            }
+            else
+            {
+                cout<<"Wystapil blad";  
+            }
+            system("pause");
         break;
         case 'a':
         case 'A':
@@ -918,6 +982,7 @@ bool Katalog::print(bool mode)
     {
         long X;
         string strN = this -> nazwa;
+        int dl;
         strN.append(".txt");
         char* nazwaPliku = new char[this -> nazwa.length()];
         strcpy(nazwaPliku, strN.c_str());
@@ -929,13 +994,15 @@ bool Katalog::print(bool mode)
         {
         case 1:
             tab = this -> produkty;
+            dl = this -> dane;
             break;
         case 0:
             tab = this -> wyszukane; 
+            dl = this -> counterWyszukane;
             break;        
         } 
 
-        for (int i = 0; i < this -> dane; i++)
+        for (int i = 0; i < dl; i++)
         {
             if (tab[i].getStatus() == false)
             {
@@ -964,6 +1031,73 @@ bool Katalog::print(bool mode)
         return false;
     }
     return false;
+}
+bool Katalog::zapisz(bool mode, string nazwaPliku)
+{
+    try
+    {
+        long X;
+        string strN;
+        
+        if (nazwaPliku == "")
+        {
+            strN = this -> nazwa;
+        }
+        else
+        {
+            strN = nazwaPliku;
+        }
+        
+        int dl;
+        strN.append(".save");
+        char* nazwaKoncowa = new char[strN.length()];
+        strcpy(nazwaKoncowa, strN.c_str());
+        ofstream file(nazwaKoncowa);
+        Produkt *tab;
+        
+        switch (!mode)
+        {
+        case 1:
+            tab = this -> produkty;
+            dl = this -> dane;
+            break;
+        case 0:
+            tab = this -> wyszukane; 
+            dl = this -> counterWyszukane;
+            break;        
+        } 
+        //zapis
+        file<<this -> nazwa<<endl;
+        file<<this -> wielkosc<<endl;
+        file<<this -> dane<<endl;
+        for (int i = 0; i < dl; i++)
+        {
+            file<<tab[i].getID()<<endl;
+            file<<tab[i].getNazwaProd()<<endl;
+            file<<tab[i].getCena()<<endl;
+            file<<tab[i].getIlosc()<<endl;
+            file<<tab[i].getWyslane()<<endl;
+            file<<tab[i].getRezerwacja()<<endl;
+            file<<tab[i].getStatus()<<endl;
+        }
+        return true;
+    }
+    catch(const std::exception& e)
+    {
+        cout<< e.what() << '\n';
+        return false;
+    }
+    return false;
+}
+void Katalog::wczytaj(string arr[])
+{
+    this -> produkty[stoi(arr[7])].setID(stoi(arr[0]));
+    this -> produkty[stoi(arr[7])].setNazwaProd(arr[1]);
+    this -> produkty[stoi(arr[7])].setCena(stof(arr[2]));
+    this -> produkty[stoi(arr[7])].setIlosc(stoi(arr[3]));
+    this -> produkty[stoi(arr[7])].setWyslane(stoi(arr[4]));
+    this -> produkty[stoi(arr[7])].setRezerwacja(stoi(arr[5]));
+    this -> produkty[stoi(arr[7])].setStatus(stoi(arr[6]));
 }
 //
 //    ----------------------------
@@ -1006,3 +1140,18 @@ bool Katalog::print(bool mode)
 
 //  ID      Nazwa               Cena        Ilosc       Sprzedano      Rezerwacja       Wyslano
 //  1       Towar               123         124         543            125              5324
+
+
+
+//zapis budowa
+// [nazwa]
+// [wielkosc]
+// [ilosc danych]
+// [id]
+// [nazwa]
+// [cena]
+// [ilosc]
+// [wyslane]
+// [rezerwacja]
+// [ukrycie]
+// [...]
