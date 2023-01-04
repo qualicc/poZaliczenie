@@ -81,7 +81,7 @@ class Katalog:public Produkt
         void sortId(bool kierunek);
         bool print(bool mode);
         bool zapisz(bool mode, string nazwaPliku);
-        void wczytaj(string arr[]);
+        void wczytaj(string naz);
 };
 
 class User
@@ -174,66 +174,14 @@ main()
                 cin>>nazw;
                 try
                 {
-                    int ilosc;
-                    nazw.append(".save");
-                    char* nazwaKoncowa = new char[nazw.length()];
-                    string buff,arr[8];
-
-                    strcpy(nazwaKoncowa, nazw.c_str());
-                    ifstream file;
-                    file.open(nazwaKoncowa);
-
-                    //podstawowe dane
-                    getline(file,buff);
-                    kat[utworzone].setNazwa(buff);
-                    getline(file,buff);
-                    kat[utworzone].buduj(stoi(buff));
-                    getline(file,buff);
-                    ilosc = stoi(buff);
-                    kat[utworzone].setDataCount(ilosc);
-                    //dane
-                    for (int i = 0; i < ilosc; i++)
-                    {
-                        //ID
-                        getline(file,buff);
-                        arr[0] = buff;
-
-                        //nazwa
-                        getline(file,buff);
-                        arr[1] = buff;
-                        
-                        //cena
-                        getline(file,buff);
-                        arr[2] = buff;
-                        
-                        //ilosc
-                        getline(file,buff);
-                        arr[3] = buff;
-                        
-                        //wyslane
-                        getline(file,buff);
-                        arr[4] = buff;
-                        
-                        //rezerwacja
-                        getline(file,buff);
-                        arr[5] = buff;
-                        
-                        //ukrycie
-                        getline(file,buff);
-                        arr[6] = buff;
-                        
-                        //pozycja
-                        arr[7] = i;
-                        kat[utworzone].wczytaj(arr);
-
-                    }
-
+                    kat[utworzone].wczytaj(nazw);
                     utworzone++;
                 }
                 catch(const std::exception& e)
                 {
                     cout<<"Wystapil blad"<<endl;
                     std::cerr << e.what() << '\n';
+                    system("pause");
                 }
                 
                 

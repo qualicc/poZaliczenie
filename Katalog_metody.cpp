@@ -223,7 +223,7 @@ void Katalog::setDataCount(int x)
 }
 void Katalog::menu()
 {
-    int koniecLini = 26, pion = 20, cyfra, sth, l1, l2, kierunek;
+    int koniecLini = 26, pion = 22, cyfra, sth, l1, l2, kierunek;
     char input = 0;
     string nazw;
     do
@@ -1089,15 +1089,61 @@ bool Katalog::zapisz(bool mode, string nazwaPliku)
     }
     return false;
 }
-void Katalog::wczytaj(string arr[])
+void Katalog::wczytaj(string nazw)
 {
-    this -> produkty[stoi(arr[7])].setID(stoi(arr[0]));
-    this -> produkty[stoi(arr[7])].setNazwaProd(arr[1]);
-    this -> produkty[stoi(arr[7])].setCena(stof(arr[2]));
-    this -> produkty[stoi(arr[7])].setIlosc(stoi(arr[3]));
-    this -> produkty[stoi(arr[7])].setWyslane(stoi(arr[4]));
-    this -> produkty[stoi(arr[7])].setRezerwacja(stoi(arr[5]));
-    this -> produkty[stoi(arr[7])].setStatus(stoi(arr[6]));
+    nazw.append(".save");
+    char* nazwaKoncowa = new char[nazw.length()];
+    strcpy(nazwaKoncowa, nazw.c_str());
+    string buff;
+
+
+    ifstream file;
+    file.open(nazwaKoncowa);
+    getline(file,buff);
+    //cout<<"nazwa: "<<buff<<endl;
+    this -> setNazwa(buff);
+    //cout<<"nazwa: "<<this -> nazwa<<endl;
+    getline(file,buff);
+    //cout<<"wielkosc: "<<buff<<endl;
+    this -> buduj(stoi(buff));
+    //cout<<"wielkosc: "<<this -> nazwa<<endl;
+    getline(file,buff);
+    //cout<<"wielkosc: "<<buff<<endl;
+    this -> setDataCount(stoi(buff));
+    for (int i = 0; i < this -> dane; i++)
+    {
+        //ID
+        getline(file,buff);
+        this -> produkty[i].setID(stoi(buff));
+
+        //nazwa
+        getline(file,buff);
+        this -> produkty[i].setNazwaProd(buff);
+        
+        //cena
+        getline(file,buff);
+        this -> produkty[i].setCena(stof(buff));
+        
+        //ilosc
+        getline(file,buff);
+        this -> produkty[i].setIlosc(stoi(buff));
+        
+        //wyslane
+        getline(file,buff);
+        this -> produkty[i].setWyslane(stoi(buff));
+        
+        //rezerwacja
+        getline(file,buff);
+        this -> produkty[i].setRezerwacja(stoi(buff));
+        
+        //ukrycie
+        getline(file,buff);
+        this -> produkty[i].setStatus(stoi(buff));
+        
+    }
+    
+    file.close();
+
 }
 //
 //    ----------------------------

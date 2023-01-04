@@ -1,5 +1,5 @@
 zapisz                                              X
-wczytaj
+wczytaj                                             X
 zapisz pod nazwą                                    X
 sortuj po id/cena/sprzedane                         X
 kosz                                                X
