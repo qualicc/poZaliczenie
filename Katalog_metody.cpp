@@ -590,6 +590,8 @@ void Katalog::poNazwie(string text)
     {
         checker = 0;
         nazwa = this -> produkty[i].getNazwaProd();
+        
+        
         for (int k = 0; k <= textLen; k++)
         {
             if (nazwa[k] == text[k] || (nazwa[k] + 32) == text[k] || (nazwa[k] - 32) == text[k])
@@ -598,7 +600,7 @@ void Katalog::poNazwie(string text)
             }                
 
         }
-        if (checker == textLen)
+        if (checker == textLen || nazwa == text)
         {
             this -> wyszukane[this -> counterWyszukane] = this -> produkty[i];
             (this -> counterWyszukane)++;
@@ -610,7 +612,7 @@ void Katalog::poNazwie(string text)
     }
     else
     {
-        cout<<"nie znleziono";
+        cout<<"nie znleziono"<<endl;
         system("pause");
     }
     

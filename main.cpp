@@ -9,6 +9,7 @@
 #include <bits/stdc++.h>
 #include <fstream>
 #include <algorithm>
+#include <vector>
 using namespace std;
 
 class Produkt
@@ -101,8 +102,10 @@ main()
 {
     int wielkosc= 0,utworzone = 0,wybrany;
     string nazw;
-    Katalog *kat;
-    kat = new Katalog[10];
+    // Katalog *kat;
+    // kat = new Katalog[10];
+    vector <Katalog> kat;
+
     char input;
     srand(time(NULL));
     do
@@ -121,13 +124,13 @@ main()
         switch (input)
         {
             case '1':
-                for (int i = 0; i < 9; i++)
+                for (int i = 0; i < kat.size(); i++)
                 {
                     cout<<(i+1)<<". "<<kat[i].getNazwa()<<endl;
                 }
                 do
                 {
-                    cout<<"wybierz magazyn(1-10) lub ESC aby wyjsc";
+                    cout<<"wybierz magazyn(1-"<<kat.size()<<") lub ESC aby wyjsc";
                     input = getch();
                     switch (input)
                     {
@@ -157,6 +160,7 @@ main()
                     {
                         cout<<"podaj nazwe katalogu:"<<endl<<"  ";
                         cin>>nazw;
+                        kat.push_back(Katalog());
                         kat[utworzone].buduj(wielkosc);
                         kat[utworzone].setNazwa(nazw);
                         utworzone++;
@@ -174,6 +178,7 @@ main()
                 cin>>nazw;
                 try
                 {
+                    kat.push_back(Katalog());
                     kat[utworzone].wczytaj(nazw);
                     utworzone++;
                 }
