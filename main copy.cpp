@@ -14,13 +14,13 @@ using namespace std;
 
 class Produkt
 {
-    public:
+    protected:
         string nazwa;//1
         int ilosc, rezerwacja, wyslane, ID;
         float cena;
         bool ukrycie = false;//1
 
-    
+    public:
         //metody
         void ukryj();
         void odzyskaj();
@@ -49,31 +49,34 @@ class Produkt
 
 class Katalog:public Produkt
 {
-    public:
+    protected:
         int wielkosc,ID, aktualny = 0, dane = 0, counterWyszukane = 0;
         string nazwa = "";
         bool arch = false;
         Produkt bufor, *produkty, *wyszukane;
 
-    
+    public:
         bool import();
         bool save();
         void buduj(int x);
         void kolejny();
         void poprzedni();
+        void wyswietl();
         void setNazwa(string naz);
         void setDataCount(int x);
         void setArch(bool x);
         bool getArch();
+        void menu();
         string getNazwa();
         void generuj(int x);
         bool zamienJeden(int);
         bool dodajJeden(int i);
-        bool poNazwie(string text);
+        void poNazwie(string text);
+        void wyswietlaniePoWyszukaniu();
         bool archiwizujWyszuakne();
         void nextWysz();
         void prevWysz();
-        bool wyszukniePrzedzialCena(float min, float max);
+        void wyszukniePrzedzialCena(float min, float max);
         void sortNazwa(bool kierunek);
         void sortCena(bool kierunek);
         void sortId(bool kierunek);
@@ -180,7 +183,7 @@ main()
                                 {
                                     case '1':
                                         aktualyKatalog.setArch(false);
-                                        wyswietl(aktualyKatalog);
+                                        aktualyKatalog.wyswietl();//do zrobienia
                                     break;
                                     case '2':
                                         cout<<" ID      Nazwa               Cena        Ilosc       Sprzedano      Rezerwacja       Wyslano"<<endl;
@@ -215,7 +218,7 @@ main()
                                     break;
                                     case '3':
                                         aktualyKatalog.setArch(true);
-                                        wyswietl(aktualyKatalog);
+                                        aktualyKatalog.wyswietl();//do zrobienia
                                     break;
                                     case '4':
                                         do
@@ -272,16 +275,7 @@ main()
                                             case '1':
                                                 cout<<"Podaj calosc lub fragment nazwy: "<<endl;
                                                 getline( cin, nazw );
-                                                if(aktualyKatalog.poNazwie(nazw))
-                                                {
-                                                    aktualyKatalog.poNazwie(nazw);
-                                                    wyswietlaniePoWyszukaniu(aktualyKatalog);
-                                                }
-                                                else
-                                                {
-                                                    cout<<"brak takich rekordow";
-                                                    system("pause");
-                                                }
+                                                aktualyKatalog.poNazwie(nazw);// przeniesc do main
                                                 break;
                                             case '2':
                                                 cout<<"Podaj przedzial min, max. (alby wybrac na podstawie jednej wartosci wprowadz 2 razy ta sama wartosc)"<<endl;
@@ -290,16 +284,7 @@ main()
                                                 cin>> l2;
                                                 if (l1 <= l2 && l1 > 0)
                                                 {
-                                                    if(aktualyKatalog.wyszukniePrzedzialCena(l1, l2))
-                                                    {
-                                                        aktualyKatalog.wyszukniePrzedzialCena(l1, l2);
-                                                        wyswietlaniePoWyszukaniu(aktualyKatalog);
-                                                    }
-                                                    else
-                                                    {
-                                                        cout<<"brak takich rekordow";
-                                                        system("pause");
-                                                    }
+                                                    aktualyKatalog.wyszukniePrzedzialCena(l1, l2);
                                                 }
                                                 else
                                                 {
@@ -324,7 +309,7 @@ main()
                                             aktualyKatalog.bufor.odzyskaj();
                                             cout<<"Podaj nazwe: ";
                                             getline( cin, nazw );
-                                            aktualyKatalog.bufor.setNazwaProd(nazw);
+                                            bufor.setNazwaProd(nazw);
                                             do
                                             {
                                                 cout<<endl<<"Podaj cene: ";
@@ -391,7 +376,7 @@ main()
                                             
                                                 if(aktualyKatalog.dodajJeden((aktualyKatalog.getIloscDanych())))
                                                 {
-                                                    aktualyKatalog.dane = aktualyKatalog.getIloscDanych()+ 1;
+                                                    aktualyKatalog.getIloscDanych()= aktualyKatalog.getIloscDanych()+ 1;
                                                     cout<<endl<<"Dodano pomyslnie"<<endl;
                                                     system("pause");
                                                 }
@@ -410,7 +395,7 @@ main()
                                                 cout<<"Zla wartosc"<<endl;
                                             }
                                         } while (ile <= 0 || ile > aktualyKatalog.getWielkosc());
-                                        aktualyKatalog.generuj(ile);
+                                        generuj(ile);
                                         
                                     break;
                                     case '8':
