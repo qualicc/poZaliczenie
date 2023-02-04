@@ -15,7 +15,7 @@ using namespace std;
 class Produkt
 {
     public:
-        string nazwa;//1
+        string nazwa ;//1
         int ilosc, rezerwacja, wyslane, ID;
         float cena;
         bool ukrycie = false;//1
@@ -24,14 +24,14 @@ class Produkt
         //metody
         void ukryj();
         void odzyskaj();
-        void losuj(int id);
+        void losuj(int x);
         bool zarezeruj(int ile);
         bool wyslij(int ile);
         bool zwroc(int ile);
         //set i get
         bool setCena(int cena);
         bool setNazwaProd(string naz);
-        bool setID(int id);
+        void setID(int id);
         bool setIlosc(int ilosc);
         bool setRezerwacja(int rez);
         bool setWyslane(int wys);
@@ -73,6 +73,7 @@ class Katalog:public Produkt
         bool archiwizujWyszuakne();
         void nextWysz();
         void prevWysz();
+        void setWielkosc(int x);
         bool wyszukniePrzedzialCena(float min, float max);
         void sortNazwa(bool kierunek);
         void sortCena(bool kierunek);
@@ -137,10 +138,9 @@ main()
                     case 0:
                         break;
                     default:
-                    system("pause");
                         if (intINPUT > 0 && intINPUT <= kat.size())
                         {
-                            aktualyKatalog = kat[intINPUT];
+                            aktualyKatalog = kat[(intINPUT-1)];
                             int koniecLini = 26, pion = 22, cyfra, sth, l1, l2, kierunek;
                             char input = 0;
                             string nazw;
@@ -162,7 +162,7 @@ main()
                                 cout<<"|########################|"<<endl;
                                 cout<<"|1. Przegladaj jeden     |"<<endl;
                                 cout<<"|2. Przegladaj wszystkie |"<<endl;
-                                cout<<"|3. Kosz                 |"<<aktualyKatalog.archCount<<endl;
+                                cout<<"|3. Kosz                 |"<<endl;
                                 cout<<"|4. Sortuj               |"<<endl;
                                 cout<<"|5. Wyszukaj             |"<<endl;
                                 cout<<"|6. Dodaj jeden          |"<<endl;   
@@ -215,14 +215,12 @@ main()
                                     case '3':
                                         if(aktualyKatalog.archCount > 0)
                                         {
-                                            cout<<"danych w koszu";
-                                            // aktualyKatalog.setArch(true);
-                                            // wyswietl(aktualyKatalog);
-                                            system("pause");
+                                            aktualyKatalog.setArch(true);
+                                            wyswietl(aktualyKatalog);
                                         }
                                         else
                                         {
-                                            cout<<"brak danych w koszu";
+                                            cout<<"brak danych w koszu"<<endl;
                                             system("pause");
                                         }
                                         
@@ -489,7 +487,7 @@ main()
                         cout<<"zla komenda";
                         break;
                     }                    
-                } while (input != 0);
+                } while (intINPUT != 0);
                 
 
 
@@ -505,6 +503,7 @@ main()
                         cin>>nazw;
                         kat.push_back(Katalog());
                         kat[utworzone].setNazwa(nazw);
+                        kat[utworzone].setWielkosc(wielkosc);
                         utworzone++;
                     }
                     else

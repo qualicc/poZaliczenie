@@ -21,16 +21,26 @@ void Produkt::odzyskaj()
 {
     this -> ukrycie = false;
 }
-void Produkt::losuj(int id)
+void Produkt::losuj(int x)
 {
-    int liczba = rand();
-    this -> setID(id);
-    this -> setNazwaProd("Towar");
-    this -> setIlosc(liczba%950+1);
-    this -> setRezerwacja(liczba%400+1);
-    this -> setWyslane(liczba%2000+1);
-    this -> setCena(liczba%1561+1);
-    this -> odzyskaj();
+    try
+    {
+        int liczba = rand();
+        this -> setID(x);
+        this -> setNazwaProd("Towar");
+        this -> setIlosc(liczba%950+1);
+        this -> setRezerwacja(liczba%400+1);
+        this -> setWyslane(liczba%2000+1);
+        this -> setCena(liczba%1561+1);
+        this -> odzyskaj();
+    }
+    catch(const std::exception& e)
+    {
+        cout<< e.what() << '\n';
+        system("pause");
+    }
+    
+
 }
 bool Produkt::zarezeruj(int ile)
 {
@@ -77,10 +87,9 @@ bool Produkt::setNazwaProd(string naz)
     //strcpy(this -> nazwa,naz);
     return true;
 }
-bool Produkt::setID(int id)
+void Produkt::setID(int id)
 {
     this -> ID = id;
-    return true;
 }
 bool Produkt::setIlosc(int ilosc)
 {

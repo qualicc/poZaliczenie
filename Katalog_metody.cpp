@@ -11,10 +11,6 @@
 #include <algorithm>
 using namespace std;
 
-//     Katalog::Katalog(int rozmiar)
-// {
-    
-// }
 void Katalog::kolejny()
 {
     int x = 1;
@@ -67,6 +63,10 @@ void Katalog::buduj(int x)
     produkty = new Produkt[x];
     this -> wielkosc = x;
 }
+void Katalog::setWielkosc(int x)
+{
+    this -> wielkosc = x;
+}
 void Katalog::setNazwa(string naz)
 {
     this -> nazwa = naz;
@@ -84,8 +84,9 @@ void Katalog::generuj(int x)
 {
     for (int i = 0; i <= (x - 1); i++)
     {
-        this -> produkty[(this -> dane + i)].losuj(this -> dane + i + 1);
+        this -> produkty[(this -> dane + i)].losuj((this -> dane + i + 1));
     }
+
     this -> dane = this -> dane + x;    
 }
 void Katalog::setArch(bool x)
