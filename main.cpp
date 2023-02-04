@@ -50,7 +50,7 @@ class Produkt
 class Katalog:public Produkt
 {
     public:
-        int wielkosc,ID, aktualny = 0, dane = 0, counterWyszukane = 0,arch = 0;
+        int wielkosc,ID, aktualny = 0, dane = 0, counterWyszukane = 0,archCount = 0;
         string nazwa = "";
         bool arch = false;
         Produkt bufor, *produkty, *wyszukane;
@@ -130,17 +130,16 @@ main()
                 }
                 do
                 {
-                    cout<<"wybierz magazyn(1-"<<kat.size()<<") lub ESC aby wyjsc";
-                    input = getch();
-                    switch (input)
+                    cout<<"wybierz magazyn(1-"<<kat.size()<<") lub 0 aby wyjsc"<<endl;
+                    cin>>intINPUT;
+                    switch (intINPUT)
                     {
-                    case 27:
+                    case 0:
                         break;
                     default:
-                        strINPUT = input;
-                        if (intINPUT = stoi(strINPUT) && intINPUT >= 0 && intINPUT <= kat.size())
+                    system("pause");
+                        if (intINPUT > 0 && intINPUT <= kat.size())
                         {
-                            intINPUT = stoi(strINPUT);
                             aktualyKatalog = kat[intINPUT];
                             int koniecLini = 26, pion = 22, cyfra, sth, l1, l2, kierunek;
                             char input = 0;
@@ -163,7 +162,7 @@ main()
                                 cout<<"|########################|"<<endl;
                                 cout<<"|1. Przegladaj jeden     |"<<endl;
                                 cout<<"|2. Przegladaj wszystkie |"<<endl;
-                                cout<<"|3. Kosz                 |"<<endl;
+                                cout<<"|3. Kosz                 |"<<aktualyKatalog.archCount<<endl;
                                 cout<<"|4. Sortuj               |"<<endl;
                                 cout<<"|5. Wyszukaj             |"<<endl;
                                 cout<<"|6. Dodaj jeden          |"<<endl;   
@@ -214,10 +213,12 @@ main()
                                         system("pause");
                                     break;
                                     case '3':
-                                        if(aktualyKatalog.arch >0)
+                                        if(aktualyKatalog.archCount > 0)
                                         {
-                                            aktualyKatalog.setArch(true);
-                                            wyswietl(aktualyKatalog);
+                                            cout<<"danych w koszu";
+                                            // aktualyKatalog.setArch(true);
+                                            // wyswietl(aktualyKatalog);
+                                            system("pause");
                                         }
                                         else
                                         {
@@ -488,7 +489,7 @@ main()
                         cout<<"zla komenda";
                         break;
                     }                    
-                } while (input != 27);
+                } while (input != 0);
                 
 
 

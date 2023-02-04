@@ -131,7 +131,7 @@ bool Katalog::poNazwie(string text)
     {
 
         nazwa = this -> produkty[i].getNazwaProd();
-        size_t found = a.find(b);
+        size_t found = nazwa.find(text);
         
         if (found != string::npos)
         {

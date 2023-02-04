@@ -175,10 +175,10 @@ void wyswietl(Katalog aktualyKatalog)
             case '2':
                 if(aktualyKatalog.getArch() == true){
                     aktualyKatalog.produkty[aktualyKatalog.aktualny].odzyskaj();
-                    aktualyKatalog.arch--;
+                    aktualyKatalog.archCount--;
                 }else{
                     aktualyKatalog.produkty[aktualyKatalog.aktualny].ukryj();
-                    aktualyKatalog.arch++;
+                    aktualyKatalog.archCount++;
                 }
             break;
             case 68: case 100:
