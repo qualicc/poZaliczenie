@@ -126,31 +126,17 @@ bool Katalog::poNazwie(string text)
 {
     this -> counterWyszukane = 0;
     this -> wyszukane =  new Produkt[this -> dane];
-    int textLen = text.length(), checker;
     string nazwa;
-    for (int i = 0; i <= this -> dane; i++)
+    for (int i = 0; i < this -> dane; i++)
     {
-        checker = 0;
-        nazwa = this -> produkty[i].getNazwaProd();
-        
-        if(nazwa == text)
-        {
-            this -> wyszukane[this -> counterWyszukane] = this -> produkty[i];
-            (this -> counterWyszukane)++;
-            continue;
-        }
-        for (int k = 0; k <= textLen; k++)
-        {
-            if (nazwa[k] == text[k] || (nazwa[k] + 32) == text[k] || (nazwa[k] - 32) == text[k])
-            {
-                checker++;
-            }                
 
-        }
-        if (checker == textLen || nazwa == text)
+        nazwa = this -> produkty[i].getNazwaProd();
+        size_t found = a.find(b);
+        
+        if (found != string::npos)
         {
+            this -> counterWyszukane++;
             this -> wyszukane[this -> counterWyszukane] = this -> produkty[i];
-            (this -> counterWyszukane)++;
         }
     }
     if(this -> counterWyszukane > 0)
@@ -178,6 +164,7 @@ bool Katalog::archiwizujWyszuakne()
                 }
             }
         }
+        this -> arch = this -> arch + this -> counterWyszukane;
         return true;
     }
     catch(const std::exception& e)

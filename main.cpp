@@ -50,7 +50,7 @@ class Produkt
 class Katalog:public Produkt
 {
     public:
-        int wielkosc,ID, aktualny = 0, dane = 0, counterWyszukane = 0;
+        int wielkosc,ID, aktualny = 0, dane = 0, counterWyszukane = 0,arch = 0;
         string nazwa = "";
         bool arch = false;
         Produkt bufor, *produkty, *wyszukane;
@@ -214,8 +214,17 @@ main()
                                         system("pause");
                                     break;
                                     case '3':
-                                        aktualyKatalog.setArch(true);
-                                        wyswietl(aktualyKatalog);
+                                        if(aktualyKatalog.arch >0)
+                                        {
+                                            aktualyKatalog.setArch(true);
+                                            wyswietl(aktualyKatalog);
+                                        }
+                                        else
+                                        {
+                                            cout<<"brak danych w koszu";
+                                            system("pause");
+                                        }
+                                        
                                     break;
                                     case '4':
                                         do
