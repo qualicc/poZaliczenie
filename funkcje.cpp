@@ -50,7 +50,7 @@ void tp(int x, int y)
      c.X = y-1;
      SetConsoleCursorPosition (GetStdHandle (STD_OUTPUT_HANDLE), c);
 }
-void wyswietl(Katalog aktualyKatalog)
+void wyswietl(Katalog &aktualyKatalog)
 {
     int koniecLini = 28, cyfra;
     char input = 0;
@@ -85,10 +85,12 @@ void wyswietl(Katalog aktualyKatalog)
         cout<<"|1. Zmien dane             |"<<endl;
         if(aktualyKatalog.getArch() == true){
             cout<<"|2. Odzyskaj               |"<<endl;
+            cout<<"|3. Usun                   |"<<endl;
         }else{
             cout<<"|2. Archiwizuj             |"<<endl;
+            cout<<"|                          |"<<endl;
         }
-        cout<<"|3. Usuń                   |"<<endl;
+        
         cout<<"|                          |"<<endl;
         cout<<"|                          |"<<endl;
         cout<<"|ESC. Wyjdz                |"<<endl;
@@ -189,7 +191,7 @@ void wyswietl(Katalog aktualyKatalog)
                 aktualyKatalog.poprzedni();
             break; 
             case '3':
-                aktualyKatalog.usun(aktualyKatalog.aktualny);
+                aktualyKatalog.usun();
             break;          
             default:
             cout<<"zla komenda";
@@ -198,7 +200,7 @@ void wyswietl(Katalog aktualyKatalog)
         
     } while (input != 27);
 }
-void wyswietlaniePoWyszukaniu(Katalog aktualyKatalog)
+void wyswietlaniePoWyszukaniu(Katalog &aktualyKatalog)
 {
     int koniecLini = 28, cyfra;
     char input = 0;
