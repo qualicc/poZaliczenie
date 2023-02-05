@@ -88,6 +88,7 @@ void wyswietl(Katalog aktualyKatalog)
         }else{
             cout<<"|2. Archiwizuj             |"<<endl;
         }
+        cout<<"|3. Usuń                   |"<<endl;
         cout<<"|                          |"<<endl;
         cout<<"|                          |"<<endl;
         cout<<"|ESC. Wyjdz                |"<<endl;
@@ -186,7 +187,10 @@ void wyswietl(Katalog aktualyKatalog)
             break;
             case 65: case 97:
                 aktualyKatalog.poprzedni();
-            break;            
+            break; 
+            case '3':
+                aktualyKatalog.usun(aktualyKatalog.aktualny);
+            break;          
             default:
             cout<<"zla komenda";
             break;

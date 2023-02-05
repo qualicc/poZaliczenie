@@ -85,6 +85,7 @@ class Katalog:public Produkt
         void setAktualny(int x);
         int getWielkosc();
         int getIloscDanych();
+        void usun();
 };
 
 class User

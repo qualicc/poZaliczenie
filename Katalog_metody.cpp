@@ -523,6 +523,15 @@ int Katalog::getIloscDanych()
 {
     return this -> dane;
 }
+void Katalog::usun()
+{
+    for (int i = this -> aktualny; i < this -> dane; i++)
+    {
+        this -> bufor = this -> produkty[i+1];
+        this -> produkty[i] = this -> bufor;
+    }
+    (this -> dane)--;
+}
 //
 //    ----------------------------
 //    |ID:                       |
